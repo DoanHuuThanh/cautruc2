@@ -5,8 +5,8 @@ export class AdminProductController {
   constructor() {}
 
   @Get()
-  @Render('customer/index')
+  @Render('admin/admin-index')
   getHello() {
-    return { message: 'Hello HIHI!' };
+    return { message: 'Hello HIHI!' }; 
   }
 }

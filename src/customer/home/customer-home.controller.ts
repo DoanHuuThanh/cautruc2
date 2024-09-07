@@ -8,6 +8,6 @@ export class CustomerHomeController {
     @Get()
     @Render('customer/home/customer-home-index')
     getHello() { 
-      return { message: "hihi" }; 
+      return { message: "hihi", htmlImport: "<div>test</div>" }; 
     } 
 }
