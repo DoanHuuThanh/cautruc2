@@ -5,29 +5,34 @@
 |   |   +-- nhat_1.sql        // File sql để chạy thay đổi dữ liệu db => Khi chạy sẽ gộp tất cả file làm 1 và chạy
 |   |   +-- thanh_2.sql
 |   +-- ...
-+-- public        // Lưu chữ dữ liệu public: icon, image
++-- public        // Lưu chữ dữ liệu static: icon, image, css
+|   +-- css
+|   |   +-- admin      // file css của phần admin
+|   |   +-- customer      // file css của phần khách hàng
 |   +-- images
 |   +-- icons
+|   +-- js        // Lưu trữ file js sử dụng cho views
+|   |   +-- admin      // file js của phần admin
+|   |   +-- customer      // file js của phần khách hàng
 +-- src        // Lưu trữ code chính của dự án
 |   +-- admin        // Lưu trữ controller, view cho trang admin
 |   |   +-- product        // Lưu trữ controller, view cho chức năng sản phẩm của trang admin
-|   |   |   +-- views        // Lưu trữ view dùng cho chức năng sản phẩm của trang admin
 |   |   |   +-- .controller.ts        // controller của chức năng sản phẩm của trang admin
 |   |   |   +-- .module.ts        // module của chức năng sản phẩm của trang admin
-|   |   +-- project    
-|   |   +-- view-components        // Component chung của trang admin
+|   |   +-- project
 |   |   +-- admin.module.ts        // module cao nhất của trang admin: các module trong admin import vào module này để sử dụng 
-|   +-- customer    
-|   |   +-- home    
-|   |   +-- project    
-|   |   +-- view-components    
-|   |   +-- customer.module.ts    
+|   +-- customer
 |   +-- config        // Lưu config cho dùng cho ứng dụng
 |   |   +-- .env        // Config riêng cho từng thành viên
 |   |   +-- .share.env        // Config chung: chỉ cần thay đổi giá trị không cần build ứng dụng
-|   +-- share        // Chứa entity, service, provider dùng chung cho ứng dụn
+|   +-- share        // Chứa entity, service, provider dùng chung cho ứng dụng
 |   +-- app.module.ts        // Module level cao nhất ứng dụng: AdminModule và customerModule import vào đây
 |   +-- main.ts        // Cấu hình ứng dụng 
++-- views        // Chứa views của ứng dụng
+|   +-- admin        // Chứa views của trang quản trị
+|   |   +-- components        // Chứa components dùng nhiều nơi
+|   |   +-- layouts       // Chứa phần của trang web như footer, header,...
+|   +-- customer        // Chứa views của trang khách hàng
 +-- tailwind.config.js        // Config thuộc tính css
 ```
 
@@ -49,7 +54,10 @@
 ## Chạy ứng dụng
 ``` npm run start:dev ```
 ## Chạy tailwind
-``` npm run render:css ```
+- Trang khách hàng:
+``` npm run render-customer:css ```
+- Trang quản trị
+``` npm run render-admin:css ```
 
 # Hướng dẫn đẩy code: Không được trực tiếp đẩy lên nhánh develop
 1. Tạo nhánh mới với Template: 

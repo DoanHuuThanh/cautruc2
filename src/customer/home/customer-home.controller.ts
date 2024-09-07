@@ -6,8 +6,8 @@ export class CustomerHomeController {
     constructor(private configService: ConfigService) {}
   
     @Get()
-    @Render('home/views/customer-home-index')
-    getHello() {
-      return { message: "hihi" };
+    @Render('customer/home/customer-home-index')
+    getHello() { 
+      return { message: "hihi" }; 
     } 
 }
