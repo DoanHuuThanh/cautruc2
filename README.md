@@ -55,5 +55,6 @@
 1. Tạo nhánh mới với Template: 
 - Nếu là chức năng mới: ```feature/<tên người thực hiện>_<chức năng đang làm>_<chức năng làm gì>```
 - Nếu là sửa bug: ```fixbug/<tên người thực hiện>_<tóm tắt bug>```
-2. Sau khi đẩy nhánh lên, tạo pull request merge vào develop và để người review là 2 người còn lại.
+2. Trước khi đẩy lên thì rebase hoặc pull code mới nhất từ develop. 
+3. Sau khi đẩy nhánh lên, tạo pull request merge vào develop và để người review là 2 người còn lại.
 3. Phải đánh complete toàn bộ những comment xong thì Thịnh sẽ merge vào develop.
