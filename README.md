@@ -16,7 +16,7 @@
 |   |   |   +-- .controller.ts        // controller của chức năng sản phẩm của trang admin
 |   |   |   +-- .module.ts        // module của chức năng sản phẩm của trang admin
 |   |   +-- project    
-|   |   +-- view-components    
+|   |   +-- view-components        // Component chung của trang admin
 |   |   +-- admin.module.ts        // module cao nhất của trang admin: các module trong admin import vào module này để sử dụng 
 |   +-- customer    
 |   |   +-- home    
