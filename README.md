@@ -1,35 +1,35 @@
 # Cấu trúc thư mục
 
 ```
-+-- changelog    <!-- Script thay đổi liên quan đến dữ liệu db -->
-|   +-- R06.09.2024    <!-- Thư mục chứa từng phiên bản changlelog R1, R2, R3, ... -->
-|   |   +-- nhat_1.sql    <!-- File sql để chạy thay đổi dữ liệu db => Khi chạy sẽ gộp tất cả file làm 1 và chạy -->
++-- changelog        // Script thay đổi liên quan đến dữ liệu db
+|   +-- R06.09.2024        // Thư mục chứa từng phiên bản changlelog R1, R2, R3, ...
+|   |   +-- nhat_1.sql        // File sql để chạy thay đổi dữ liệu db => Khi chạy sẽ gộp tất cả file làm 1 và chạy
 |   |   +-- thanh_2.sql
 |   +-- ...
-+-- public    <!-- Lưu chữ dữ liệu public: icon, image -->
++-- public        // Lưu chữ dữ liệu public: icon, image
 |   +-- images
 |   +-- icons
-+-- src    <!-- Lưu trữ code chính của dự án -->
-|   +-- admin    <!-- Lưu trữ controller, view cho trang admin -->
-|   |   +-- product    <!-- Lưu trữ controller, view cho chức năng sản phẩm của trang admin -->
-|   |   |   +-- views    <!-- Lưu trữ view dùng cho chức năng sản phẩm của trang admin -->
-|   |   |   +-- .controller.ts    <!-- controller của chức năng sản phẩm của trang admin -->
-|   |   |   +-- .module.ts    <!-- module của chức năng sản phẩm của trang admin -->
++-- src        // Lưu trữ code chính của dự án
+|   +-- admin        // Lưu trữ controller, view cho trang admin
+|   |   +-- product        // Lưu trữ controller, view cho chức năng sản phẩm của trang admin
+|   |   |   +-- views        // Lưu trữ view dùng cho chức năng sản phẩm của trang admin
+|   |   |   +-- .controller.ts        // controller của chức năng sản phẩm của trang admin
+|   |   |   +-- .module.ts        // module của chức năng sản phẩm của trang admin
 |   |   +-- project    
 |   |   +-- view-components    
-|   |   +-- admin.module.ts    <!-- module cao nhất của trang admin: các module trong admin import vào module này để sử dụng --> 
+|   |   +-- admin.module.ts        // module cao nhất của trang admin: các module trong admin import vào module này để sử dụng 
 |   +-- customer    
 |   |   +-- home    
 |   |   +-- project    
 |   |   +-- view-components    
 |   |   +-- customer.module.ts    
-|   +-- config    <!-- Lưu config cho dùng cho ứng dụng -->
-|   |   +-- .env    <!-- Config riêng cho từng thành viên -->
-|   |   +-- .share.env    <!-- Config chung: chỉ cần thay đổi giá trị không cần build ứng dụng -->
-|   +-- share    <!-- Chứa entity, service, provider dùng chung cho ứng dụng-->
-|   +-- app.module.ts    <!-- Module level cao nhất ứng dụng: AdminModule và customerModule import vào đây -->
-|   +-- main.ts    <!-- Cấu hình ứng dụng --> 
-+-- tailwind.config.js    <!-- Config thuộc tính css -->
+|   +-- config        // Lưu config cho dùng cho ứng dụng
+|   |   +-- .env        // Config riêng cho từng thành viên
+|   |   +-- .share.env        // Config chung: chỉ cần thay đổi giá trị không cần build ứng dụng
+|   +-- share        // Chứa entity, service, provider dùng chung cho ứng dụn
+|   +-- app.module.ts        // Module level cao nhất ứng dụng: AdminModule và customerModule import vào đây
+|   +-- main.ts        // Cấu hình ứng dụng 
++-- tailwind.config.js        // Config thuộc tính css
 ```
 
 # Cấu hình ứng dụng:
