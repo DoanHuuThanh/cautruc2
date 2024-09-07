@@ -1,5 +1,4 @@
 # Cấu trúc thư mục
-
 ```
 +-- changelog        // Script thay đổi liên quan đến dữ liệu db
 |   +-- R06.09.2024        // Thư mục chứa từng phiên bản changlelog R1, R2, R3, ...
@@ -36,7 +35,6 @@
 - Đối với css: Sử dụng tailwind nên sẽ có 1 file viết css và 1 file tailwind render ra để dùng vào html
 + Viết css vào file **main.css**.
 + Import **main-out.css** vào file html. 
-
 - Khi kéo project về lần đầu:
 + Tạo và thêm vào file .env tại thư mục config để cấu hình mysql tùy chỉnh theo máy:
 ```
@@ -47,11 +45,8 @@
 ```
 + Chạy file changlog tổng hợp trong thư mục changelog
 
-
 # Câu lệnh chạy ứng dụng
-
 ## Chạy ứng dụng
 ``` npm run start:dev ```
-
 ## Chạy tailwind
 ``` npm run render:css ```
