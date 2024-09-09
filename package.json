@@ -8,8 +8,8 @@
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start --watch",
-    "start:dev": "nodemon --config nodemon.json",
+    "start": "nest start",
+    "start:dev": "concurrently \"nodemon --config nodemon.json\" \"npx tailwindcss -i ./public/css/admin/main.css -o ./public/css/admin/main-output.css --watch\" \"npx tailwindcss -i ./public/css/customer/main.css -o ./public/css/customer/main-output.css --watch\"",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "render-admin:css": "npx tailwindcss -i ./public/css/admin/main.css -o ./public/css/admin/main-output.css --watch",
@@ -44,6 +44,7 @@
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
     "autoprefixer": "^10.4.20",
+    "concurrently": "^9.0.0",
     "eslint": "^8.42.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",

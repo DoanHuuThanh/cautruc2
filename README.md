@@ -40,20 +40,57 @@
 - Đối với css: Sử dụng tailwind nên sẽ có 1 file viết css và 1 file tailwind render ra để dùng vào html
 + Viết css vào file **main.css**.
 + Import **main-out.css** vào file html. 
+
 - Khi kéo project về lần đầu:
-+ Tạo và thêm vào file .env tại thư mục config để cấu hình mysql tùy chỉnh theo máy:
-```
-    MYSQL_HOSTNAME=<hostname>
-    MYSQL_PORT=<port>
-    MYSQL_USERNAME=<username>
-    MYSQL_PASSWORD=<password>
-```
++ Tạo và thêm vào file .env tại thư mục config để cấu hình mysql tùy chỉnh theo máy dựa trên file .example.env
 + Chạy file changlog tổng hợp trong thư mục changelog
+
+- Các view ứng dụng được khởi tạo trong file register-partial.ts 
+=> Khi thêm folder mới để chứa views. Cần thêm đường dẫn đến folder đó tại biến ```partialFolders``` 
+
+- View chung của trang admin và customer là ```admin-index.hbs``` và ```customer-index.hbs```. 
+=> Chỉ cần import phần thân của trang web vào là sử dụng. 
+VD:
+
+``` customer/customer-index.hbs
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>App</title>
+  </head>
+  <body>
+    {{> customer-header }}
+    {{> (body) message=bodyMessage htmlImport=htmlImport}}
+    {{> customer-footer }}
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  </body>
+</html>
+```
+
+### Chỉ cần import đường dẫn view chung thông qua @Render và return biến ```body``` là tên view muốn import 
+### message, htmlImport là biến trong view customer-home-index - khi muốn truyền dữ liệu vào customer-home-index
+
+``` home.controller.ts
+    @Get()
+    @Render('customer/customer-index')
+    getHello() {
+    return {
+        message: 'hihi',
+        body: () => {
+        return 'customer-home-index';
+        },
+        bodyMessage: 'Hello',
+        htmlImport: '<div>test</div>',
+    };
+    } 
+```
+
 
 # Câu lệnh chạy ứng dụng
 ## Chạy ứng dụng
 ``` npm run start:dev ```
-## Chạy tailwind
+## Có thể chạy Chạy thêm tailwind riêng (nếu cần)
 - Trang khách hàng:
 ``` npm run render-customer:css ```
 - Trang quản trị

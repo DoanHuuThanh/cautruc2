@@ -2,8 +2,6 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
-import * as hbs from 'hbs';
-import * as fs from 'node:fs';
 import { registerPartial } from './register-partial';
 
 async function bootstrap() {
