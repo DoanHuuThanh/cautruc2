@@ -2,6 +2,7 @@ import { Controller } from '@nestjs/common';
 import { PaginatedResponse } from '../dto/paginated-response.dto';
 import { SuccessResponse } from '../dto/success-reponse.dto';
 import { ErrorCodes } from '../constains/error-code';
+import { ErrorResponse } from '../dto/error-response.dto';
 
 @Controller()
 export class BaseController {
