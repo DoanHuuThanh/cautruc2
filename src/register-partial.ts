@@ -13,22 +13,20 @@ export async function registerPartial() {
 
   partialFolders.forEach((partailDir) => {
     // Đọc tất cả các file trong thư mục partials
-    fs.readdir(partailDir, () => (err, files) => {
-      if (err) {
-        console.log('registerPartial: Error readdir - ', err);
-      } else {
-        for (const file of files) {
-          const filePath = join(partailDir, file);
-          // Xóa phần mở rộng để lấy tên partial
-          const partialName = file.replace(/\.[^/.]+$/, '');
+    const files = fs.readdirSync(partailDir);
+    if(files) {
+      for (const file of files) {
+        const filePath = join(partailDir, file);
+        // Xóa phần mở rộng để lấy tên partial
+        const partialName = file.replace(/\.[^/.]+$/, '');
 
-          // Đọc file và đăng ký partial
-          fs.readFile(filePath, { encoding: 'utf8' }, (err, data) => {
-            hbs.registerPartial(partialName, data);
-          });
-        }
-        console.log('registerPartial: Complete read partial');
+        // Đọc file và đăng ký partial
+        hbs.registerPartial(partialName, fs.readFileSync(filePath, { encoding: 'utf8' }).toString());
       }
-    });
+    } else {
+      console.log('registerPartial: Error readdir - ', files);
+    }
   });
+  
+  console.log('registerPartial: Complete read partial');
 }

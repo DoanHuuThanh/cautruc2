@@ -19,8 +19,6 @@ async function bootstrap() {
   // Đăng ký sử dụng partial 
   registerPartial(); 
 
-  hbs.registerPartial('text-editor', fs.readFileSync(join(__dirname, '..', 'views/admin/components/text-editor.hbs')).toString());
-
   await app.listen(3000);
 }
 bootstrap();
