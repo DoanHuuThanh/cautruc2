@@ -3,11 +3,18 @@ import { ConfigService } from '@nestjs/config';
 
 @Controller()
 export class CustomerHomeController {
-    constructor(private configService: ConfigService) {}
-  
-    @Get()
-    @Render('customer/home/customer-home-index')
-    getHello() { 
-      return { message: "hihi", htmlImport: "<div>test</div>" }; 
-    } 
+  constructor(private configService: ConfigService) {}
+
+  @Get()
+  @Render('customer/customer-index')
+  getHello() {
+    return {
+      message: 'hihi',
+      body: () => {
+        return 'customer-home-index';
+      },
+      bodyMessage: 'Hello',
+      htmlImport: '<div>test</div>',
+    };
+  }
 }

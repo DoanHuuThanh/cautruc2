@@ -7,16 +7,20 @@ export async function registerPartial() {
   const partialFolders = [
     join(__dirname, '..', 'views/admin/components'),
     join(__dirname, '..', 'views/admin/layouts'),
+    join(__dirname, '..', 'views/admin/product'),
+    join(__dirname, '..', 'views/admin/project'),
     join(__dirname, '..', 'views/customer/components'),
     join(__dirname, '..', 'views/customer/layouts'),
+    join(__dirname, '..', 'views/customer/home'),
+    join(__dirname, '..', 'views/customer/product'),
   ];
 
-  partialFolders.forEach((partailDir) => {
+  partialFolders.forEach((partial) => {
     // Đọc tất cả các file trong thư mục partials
-    const files = fs.readdirSync(partailDir);
+    const files = fs.readdirSync(partial);
     if(files) {
       for (const file of files) {
-        const filePath = join(partailDir, file);
+        const filePath = join(partial, file);
         // Xóa phần mở rộng để lấy tên partial
         const partialName = file.replace(/\.[^/.]+$/, '');
 
