@@ -48,10 +48,9 @@
 - Các view ứng dụng được khởi tạo trong file register-partial.ts 
 => Khi thêm folder mới để chứa views. Cần thêm đường dẫn đến folder đó tại biến ```partialFolders``` 
 
-- View chung của trang admin và customer là ```admin-index.hbs``` và ```customer-index.hbs```. 
-=> Chỉ cần import phần thân của trang web vào là sử dụng. 
-VD:
+### View chung của trang admin và customer là ```admin-index.hbs``` và ```customer-index.hbs```. => Chỉ cần import phần thân của trang web vào là sử dụng. 
 
+### VD:
 ``` customer/customer-index.hbs
 <!DOCTYPE html>
 <html>
@@ -70,7 +69,6 @@ VD:
 
 ### Chỉ cần import đường dẫn view chung thông qua @Render và return biến ```body``` là tên view muốn import 
 ### message, htmlImport là biến trong view customer-home-index - khi muốn truyền dữ liệu vào customer-home-index
-
 ``` home.controller.ts
     @Get()
     @Render('customer/customer-index')

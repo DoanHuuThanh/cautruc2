@@ -3,6 +3,8 @@ import * as hbs from 'hbs';
 import * as fs from 'node:fs';
 
 export async function registerPartial() {
+  console.log('registerPartial: Begin regis partial');
+
   // Danh sách folder đăng ký partial
   const partialFolders = [
     join(__dirname, '..', 'views/admin/components'),
@@ -32,5 +34,5 @@ export async function registerPartial() {
     }
   });
   
-  console.log('registerPartial: Complete read partial');
+  console.log('registerPartial: Complete regis partial');
 }

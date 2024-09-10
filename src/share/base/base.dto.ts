@@ -1,12 +1,16 @@
 export class BaseDto {
-
+  // ID của DTO
   id: number;
 
-  createdAt: Date;
+  // Ngày tạo
+  createdDate: Date;
 
-  updatedAt: Date;
+  // Ngày sửa
+  updatedDate: Date;
 
+  // Người tạo
   createdBy: string;
 
+  // Người sửa
   updatedBy: string;
 }

@@ -11,15 +11,15 @@ export class BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @CreateDateColumn({ name: 'created_at' })
+  @CreateDateColumn({ name: 'createdDate' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updated_at' })
+  @UpdateDateColumn({ name: 'updatedDate' })
   updatedAt: Date;
 
-  @Column({ name: 'created_by', nullable: true })
+  @Column({ name: 'createdBy', nullable: true })
   createdBy: string;
 
-  @Column({ name: 'updated_by', nullable: true })
+  @Column({ name: 'updatedBy', nullable: true })
   updatedBy: string;
 }
