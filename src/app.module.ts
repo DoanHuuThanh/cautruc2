@@ -1,9 +1,8 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { CustomerHomeModule } from './customer/home/customer-home.module';
 import { AdminModule } from './admin/admin.module';
-import { ConfigModule } from '@nestjs/config';
-import { databaseProviders } from './share/providers/database.provider';
-import { DatabaseModule } from './share/providers/database.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -14,7 +13,6 @@ import { DatabaseModule } from './share/providers/database.module';
     }),
     CustomerHomeModule,
     AdminModule,
-    DatabaseModule
   ],
 })
 export class AppModule {}

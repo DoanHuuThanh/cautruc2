@@ -5,4 +5,4 @@ import { CustomerProductModule } from './product/customer-product.module';
 @Module({
   imports: [CustomerHomeModule, CustomerProductModule],
 })
-export class AppModule {}
+export class CustomerModule {}

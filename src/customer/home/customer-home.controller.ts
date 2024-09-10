@@ -14,7 +14,7 @@ export class CustomerHomeController {
   @Get()
   @Render('customer/customer-index')
   getHello() {
-    console.log(this.productRepository.find());
+    // console.log(this.productRepository.find());
     return {
       message: 'hihi',
       body: () => {
