@@ -1,15 +1,15 @@
-import { StatusCode } from "../constains/status-code";
+import { StatusCode } from '../constains/status-code';
 
 export class ResponseResult<T> {
-    // Mã code trả về
-    statusCode: StatusCode;
-  
-    // message lỗi
-    message: string;
+  // Mã code trả về
+  statusCode: StatusCode;
 
-    // Có thành công không
-    isSuccess: boolean;
+  // message lỗi
+  message: string;
 
-    // Dữ liệu trả về
-    data: T; 
+  // Có thành công không
+  isSuccess: boolean;
+
+  // Dữ liệu trả về
+  data: T;
 }

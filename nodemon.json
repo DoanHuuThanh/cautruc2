@@ -1,12 +1,6 @@
 {
-    "watch": [
-        "src",
-        "views",
-        "public"
-    ],
-    "ext": "ts,hbs,js,css",
-    "ignore": [
-        "src/**/*.spec.ts"
-    ],
-    "exec": "ts-node -r tsconfig-paths/register src/main.ts"
+  "watch": ["src", "views", "public"],
+  "ext": "ts,hbs,js,css",
+  "ignore": ["src/**/*.spec.ts"],
+  "exec": "ts-node -r tsconfig-paths/register src/main.ts"
 }

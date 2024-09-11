@@ -8,13 +8,14 @@ import { Repository } from 'typeorm';
 export class CustomerHomeController {
   constructor(
     private configService: ConfigService,
-    @Inject(Constains.PRODUCT_REPOSITORY) private productRepository: Repository<Product>,
+    @Inject(Constains.PRODUCT_REPOSITORY)
+    private productRepository: Repository<Product>,
   ) {}
 
   @Get()
   @Render('customer/customer-index')
-  getHello() {
-    console.log(this.productRepository.find());
+  async getHello() {
+    console.log(await this.productRepository.find());
     return {
       message: 'hihi',
       body: () => {

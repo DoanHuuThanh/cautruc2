@@ -22,7 +22,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
       exception instanceof HttpException ? exception.getStatus() : 500;
 
     const rs = new ResponseResult<null>();
-    let message = "";
+    let message = '';
     let statusCode = StatusCode.InternalServer;
     if (exception instanceof AppException) {
       const errorCode = exception.getResponse() as string;
