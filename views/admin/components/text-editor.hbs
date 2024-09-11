@@ -1,8 +1,6 @@
 <div>
-    <div id="editor">
-        <p>Hello from CKEditor 5!</p>
-    </div>
-    <div>Hello world</div>
+    <div id="editor" class="pl-[30px]"></div>
+    <textarea name="editorContent" id="editorContent" style="display: none;"></textarea>
 
     <script type="importmap">
         {
@@ -28,27 +26,61 @@
             ImageStyle,
             ImageToolbar,
             AutoImage,
-            Base64UploadAdapter
+            FileRepository,
+            List,
+            Link,
+            Heading,
+            BlockQuote,
+            Strikethrough,
+            ListProperties,
+            TodoList,
+            Table,
+            TableToolbar,
+            TableColumnResize,
+            TableCaption,
+            Alignment,
         } from 'ckeditor5';
+
+        import { CustomUploadAdapterPlugin } from '/js/admin/post-content/customUploadAdapter.js'
 
         ClassicEditor
             .create(document.querySelector('#editor'), {
-                plugins: [Essentials, Bold, Italic, Font, Paragraph, Image, ImageInsert, AutoImage, ImageToolbar, Base64UploadAdapter, ImageCaption, ImageStyle, ImageResize],
+                plugins: [
+                    Essentials, Bold, Italic, Font, Paragraph, Image, ImageInsert, AutoImage, ImageToolbar, FileRepository, ImageCaption, ImageStyle, ImageResize, List, Link, Heading, BlockQuote, Strikethrough, ListProperties, TodoList, Table, TableToolbar, TableColumnResize, TableCaption, Alignment],
                 toolbar: {
                     items: [
-                        'undo', 'redo', '|', 'bold', 'italic', '|',
-                        'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', '|', 'insertImage'
+                        'undo', 'redo', '|',
+                        'bold', 'italic', '|',
+                        'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', '|',
+                        'insertImage', 'link', '|',
+                        'heading', 'blockQuote', 'strikethrough', 'todoList', 'bulletedList', 'numberedList', 'insertTable', 'alignment', '|',
                     ],
-
+                },
+                alignment: {
+                    options: ['left', 'right', 'center', 'justify']
+                },
+                table: {
+                    contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'toggleTableCaption']
+                },
+                list: {
+                    properties: {
+                        styles: true,
+                        startIndex: true,
+                        reversed: true
+                    }
                 },
                 image: {
-                    toolbar: ['toggleImageCaption', 'imageTextAlternative', 'ckboxImageEdit'],
+                    toolbar: ['toggleImageCaption', 'imageTextAlternative'],
                     insert: {
                         type: 'auto'
                     }
                 },
+                extraPlugins: [CustomUploadAdapterPlugin]
             })
-            .then( /* ... */)
-            .catch( /* ... */);
+            .then(editor => {
+                window.editor = editor;
+            })
+            .catch(/* ... */);
+
     </script>
 </div>

@@ -1,13 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
   <head>
     <meta charset="utf-8" />
     <title>App</title>
     <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.1.0/ckeditor5.css" />
+    <link rel="stylesheet" href="/css/admin/main-output.css" />
   </head>
-  <body>
-    {{> admin-footer }}
-    {{> (body) }}
-    {{> admin-header }}
+  <body class="min-h-screen flex flex-col">
+
+      {{> admin-header}}
+    <div class="flex flex-1 pt-[70px]">
+      <div class="w-[243px]">
+        {{> admin-sidebar}}
+      </div>
+      <div class="w-full pl-[70px] pt-6 pr-6">
+        {{> (body) }}
+      </div>
+    </div>
   </body>
 </html>

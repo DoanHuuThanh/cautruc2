@@ -9,8 +9,7 @@ export async function registerPartial() {
   const partialFolders = [
     join(__dirname, '..', 'views/admin/components'),
     join(__dirname, '..', 'views/admin/layouts'),
-    join(__dirname, '..', 'views/admin/product'),
-    join(__dirname, '..', 'views/admin/project'),
+    join(__dirname, '..', 'views/admin/post-content'),
     join(__dirname, '..', 'views/customer/components'),
     join(__dirname, '..', 'views/customer/layouts'),
     join(__dirname, '..', 'views/customer/home'),

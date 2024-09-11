@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.todo-list__label,
+ ol,
+ ul {
+    margin-left: 30px;
+}

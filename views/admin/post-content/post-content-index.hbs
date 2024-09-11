@@ -1,0 +1,57 @@
+<div>
+    <div>
+        <div class="flex justify-end mb-3">
+            <a href="/admin/post-content/new" class="mr-2">{{> admin-button title="+ Tạo bài viết mới" id="new-post-content" class=
+                "hover:bg-cyan-700"}}
+            </a>
+
+            <div>{{> admin-button title="+ Tạo thể loại bài viết" id="open-modal-new-post-category" class=
+                "bg-orange-500
+                hover:bg-red-300"}}</div>
+        </div>
+
+        {{> admin-table}}
+    </div>
+
+    <!-- Modal overlay -->
+    <div class="hidden fixed inset-0 bg-gray-300 bg-opacity-30 z-50 flex justify-center items-center"
+        id="modal-new-post-category">
+        <!-- Modal content -->
+        <div class="bg-white rounded-lg shadow relative w-full max-w-2xl px-4 h-full md:h-auto">
+            <!-- Modal header -->
+            <div class="flex items-start justify-between p-5 border-b rounded-t">
+                <h3 class="text-xl font-semibold">
+                    Thể loại bài viết mới
+                </h3>
+                <button type="button"
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+                    id="close-modal-new-post-category">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-6 space-y-6">
+                <div>
+                    {{> admin-input title="Tên thể loại" placeholder="Nhập" name='name-post-category' id='name-post-category'
+                    }}
+                </div>
+                <div>
+                    {{> admin-input title="Mô tả thể loại" placeholder="Nhập" name='description-post-category' id='description-post-category'
+                    }}
+                </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="items-center p-6 rounded-b text-end">
+                <div>{{> admin-button title="Tạo thể loại mới" id="button-new-post-category" class=
+                    "hover:bg-cyan-700"}}</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/admin/common/common.js"></script>
+    <script src="/js/admin/post-content/post-category.js"></script>
+</div>
