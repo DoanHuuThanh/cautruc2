@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+    @apply font-base font-regular text-black text-4 box-border;
+}
+
+.logo {
+    background-image: url("/icons/customer/logo.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.text-link {
+    @apply hover:text-main-yellow hover:transition-all hover:duration-500 cursor-pointer;
+}
