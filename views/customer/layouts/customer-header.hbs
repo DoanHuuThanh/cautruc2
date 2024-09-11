@@ -1,1 +1,60 @@
-<div>Header</div>
+<header id="header">
+    {{!-- Dòng mail và giờ làm việc --}}
+    <div class="bg-gray px-10 py-3 flex justify-between items-center">
+        <a class="flex gap-x-2 text-link items-center" href="mailto:thinhpk26@gmail.com">
+            <i class="fa-regular fa-envelope text-main-yellow text-4"></i>
+            <span class="font-lato text-xs font-regular text-3 text-black-light">cautrucbinhchau@gmail.com</span>
+        </a>
+        <div class="flex gap-x-2 items-center">
+            <i class="fa-regular fa-clock text-main-yellow text-4"></i>
+            <span class="font-lato text-xs font-regular text-3 text-black-light">Thứ 2 - Thứ 6 : 8h - 17h30</span>
+        </div>
+    </div>
+    {{!-- Dòng Logo địa chỉ --}}
+    <div class="mx-10 flex justify-between items-center border-b border-b-separate">
+        <div class="h-[120px] relative">
+            <div class="flex items-center absolute top-[8px] left-[-16px]">
+                <div class="logo bg-cover w-[120px] h-[120px]"></div>
+                <span class="font-bold text-5 whitespace-nowrap">BÌNH CHÂU</span>
+            </div>
+        </div>
+        <div class="flex gap-x-4 h-10">
+            <div class="flex gap-x-4 items-center">
+                <i class="fa-solid fa-location-dot text-main-yellow text-5"></i>
+                <span class="border-e border-b-separate h-full"></span>
+                <span class="text-3.5 font-lato text-black-light">Số 24 Đường Lý Thường Kiệt<br>Phường Hòa Bình, Thành Phố Bắc Ninh</span>
+            </div>
+            <div class="flex gap-x-4 items-center">
+                <i class="fa-solid fa-phone text-main-yellow text-5"></i>
+                <span class="border-e border-b-separate h-full"></span>
+                <span class="text-3.5 font-lato text-black-light">0393583026<br>0393583026</span>
+            </div>
+        </div>
+    </div>
+    {{!-- Dòng navbar --}}
+    <nav class="pe-10 ps-8 py-4 flex justify-between items-center">
+        <div id="nav" class="flex">
+            <div class="px-3 py-2 text-link font-bold text-3.5">
+                TRANG CHỦ
+            </div>
+            <div class="px-3 py-2 text-link font-bold text-3.5">
+                GIỚI THIỆU
+            </div>
+            <div class="px-3 py-2 text-link font-bold text-3.5">
+                DỰ ÁN
+            </div>
+            <div class="px-3 py-2 text-link font-bold text-3.5">
+                DANH MỤC
+            </div>
+            <div class="px-3 py-2 text-link font-bold text-3.5">
+                BÀI VIẾT
+            </div>
+            <div class="px-3 py-2 text-link font-bold text-3.5">
+                LIÊN HỆ
+            </div>
+        </div>
+        <div class="search">
+            <i class="fa-solid fa-magnifying-glass text-6xl text-link"></i>
+        </div>
+    </nav>
+</header>

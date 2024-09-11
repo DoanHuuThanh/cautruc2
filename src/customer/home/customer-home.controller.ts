@@ -15,14 +15,10 @@ export class CustomerHomeController {
   @Get()
   @Render('customer/customer-index')
   async getHello() {
-    console.log(await this.productRepository.find());
     return {
-      message: 'hihi',
       body: () => {
         return 'customer-home-index';
       },
-      bodyMessage: 'Hello',
-      htmlImport: '<div>test</div>',
     };
   }
 }
