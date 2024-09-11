@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { CustomerHomeModule } from './customer/home/customer-home.module';
 import { AdminModule } from './admin/admin.module';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
+import { DatabaseModule } from './share/providers/database.module';
 
 @Module({
   imports: [
@@ -13,6 +13,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     }),
     CustomerHomeModule,
     AdminModule,
+    DatabaseModule
   ],
 })
 export class AppModule {}
