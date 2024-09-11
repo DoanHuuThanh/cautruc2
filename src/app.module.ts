@@ -13,7 +13,7 @@ import { DatabaseModule } from './share/providers/database.module';
     }),
     CustomerHomeModule,
     AdminModule,
-    DatabaseModule
+    DatabaseModule,
   ],
 })
 export class AppModule {}

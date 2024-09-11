@@ -9,7 +9,7 @@ export class CustomerHomeController {
   constructor(
     private configService: ConfigService,
     @Inject(Constains.PRODUCT_REPOSITORY)
-    private productRepository: Repository<Product> ,
+    private productRepository: Repository<Product>,
   ) {}
 
   @Get()
@@ -20,7 +20,7 @@ export class CustomerHomeController {
       message: 'hihi',
       body: () => {
         return 'customer-home-index';
-      }, 
+      },
       bodyMessage: 'Hello',
       htmlImport: '<div>test</div>',
     };

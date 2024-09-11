@@ -5,8 +5,8 @@ import { DatabaseModule } from 'src/share/providers/database.module';
 import { ProductService } from 'src/share/services/product.service';
 
 @Module({
-  imports: [], 
+  imports: [],
   controllers: [CustomerHomeController],
-  providers: [...productProviders, ProductService]
+  providers: [...productProviders, ProductService],
 })
 export class CustomerHomeModule {}

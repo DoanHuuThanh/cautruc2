@@ -7,6 +7,6 @@ export class AdminProductController {
   @Get()
   @Render('admin/admin-index')
   getHello() {
-    return { message: 'Hello HIHI!' }; 
+    return { message: 'Hello HIHI!' };
   }
 }

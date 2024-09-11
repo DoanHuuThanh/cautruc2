@@ -1,1 +1,1 @@
-$(".title").css({color: "blue"}); 
+$('.title').css({ color: 'blue' });

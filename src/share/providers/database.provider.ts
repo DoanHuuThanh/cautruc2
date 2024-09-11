@@ -9,11 +9,11 @@ export const databaseProviders = [
     useFactory: async (configService: ConfigService) => {
       const dataSource = new DataSource({
         type: 'mysql',
-        host: configService.get<string>("MYSQL_HOSTNAME"),
-        port: configService.get<number>("MYSQL_PORT"),
-        username: configService.get<string>("MYSQL_USERNAME"),
-        password: configService.get<string>("MYSQL_PASSWORD"),
-        database: configService.get<string>("MYSQL_DATABASE"),
+        host: configService.get<string>('MYSQL_HOSTNAME'),
+        port: configService.get<number>('MYSQL_PORT'),
+        username: configService.get<string>('MYSQL_USERNAME'),
+        password: configService.get<string>('MYSQL_PASSWORD'),
+        database: configService.get<string>('MYSQL_DATABASE'),
         entities: [join(__dirname, '../entities/*.entity{.ts,.js}')],
         synchronize: true,
       });
