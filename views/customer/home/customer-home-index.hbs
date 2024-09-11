@@ -1,7 +1,397 @@
 <div>
-  {{ message }}
-  {{{htmlImport}}}
-  <div class="title">TEST</div>
+<!--  Banner-->
+  <div class="relative w-full mt-10 overflow-hidden">
+    <!-- Slider Track -->
+    <div id="sliderTrack" class="flex transition-transform duration-300 ease-in-out">
+      <!-- Slide Images -->
+      <img src="https://via.placeholder.com/800x400?text=Image+1" class="min-w-full slider-image" alt="Image 1">
+      <img src="https://via.placeholder.com/800x400?text=Image+2" class="min-w-full slider-image" alt="Image 2">
+      <img src="https://via.placeholder.com/800x400?text=Image+3" class="min-w-full slider-image" alt="Image 3">
+      <img src="https://via.placeholder.com/800x400?text=Image+4" class="min-w-full slider-image" alt="Image 4">
+      <img src="https://via.placeholder.com/800x400?text=Image+5" class="min-w-full slider-image" alt="Image 5">
+    </div>
+
+    <!-- Prev Button -->
+    <button class="prev absolute left-2 top-1/2 transform -translate-y-1/2 text-3xl bg-opacity-50 text-white p-2 hover:bg-opacity-75 cursor-pointer">
+      &lt;
+    </button>
+
+    <!-- Next Button -->
+    <button class="next absolute right-2 top-1/2 transform -translate-y-1/2 text-3xl bg-opacity-50 text-white p-2 hover:bg-opacity-75 cursor-pointer">
+      &gt;
+    </button>
+  </div>
+<!--  Introduction-->
+  <section class="container mx-auto p-10 shadow-2xl -translate-y-40 bg-white">
+    <!-- Title Section -->
+    <div class="mb-8">
+      <h2 class="text-4xl font-bold">
+        CHECK OUT <span class="text-yellow-500">OUR CREDENTIALS</span>
+      </h2>
+      <p class="text-gray-600 mt-2 italic">
+        Straight ahead and on the track now. We're gonna make our dreams come true. <span class="font-bold">black gold</span> Doin' it our way.
+      </p>
+    </div>
+
+    <!-- Content Section -->
+    <div class="flex flex-col lg:flex-row items-start justify-between">
+      <!-- Left Content (Icons and Descriptions) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full lg:w-1/2">
+        <!-- First Card -->
+        <div class="flex items-start">
+          <img src="https://via.placeholder.com/50" alt="Icon" class="mr-4">
+          <div>
+            <h3 class="text-lg font-bold">CONTEMPORARY DESIGN</h3>
+            <p class="text-gray-600">Could you be mine. And when the odds are against him and their dangers work to do. You bet your life Speed Racer.</p>
+          </div>
+        </div>
+
+        <!-- Second Card -->
+        <div class="flex items-start">
+          <img src="https://via.placeholder.com/50" alt="Icon" class="mr-4">
+          <div>
+            <h3 class="text-lg font-bold">INNOVATIVE APPROACH</h3>
+            <p class="text-gray-600">Could you be mine. And when the odds are against him and their dangers work to do. You bet your life Speed Racer.</p>
+          </div>
+        </div>
+
+        <!-- Third Card -->
+        <div class="flex items-start">
+          <img src="https://via.placeholder.com/50" alt="Icon" class="mr-4">
+          <div>
+            <h3 class="text-lg font-bold">URBAN LIVING AT ITS BEST</h3>
+            <p class="text-gray-600">Could you be mine. And when the odds are against him and their dangers work to do. You bet your life Speed Racer.</p>
+          </div>
+        </div>
+
+        <!-- Fourth Card -->
+        <div class="flex items-start">
+          <img src="https://via.placeholder.com/50" alt="Icon" class="mr-4">
+          <div>
+            <h3 class="text-lg font-bold">THE TEAM WORK</h3>
+            <p class="text-gray-600">Could you be mine. And when the odds are against him and their dangers work to do. You bet your life Speed Racer.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Image -->
+      <div class=" lg:block lg:w-1/2">
+        <img src="https://via.placeholder.com/400x300" alt="Worker Image" class="ml-auto">
+      </div>
+    </div>
+  </section>
+<!--  Slogan-->
+  <section class="container mx-auto p-10 text-center">
+    <!-- Title and Subtitle -->
+    <h2 class="text-4xl font-bold">
+      <span class="text-blue-600">Our</span><span class="text-yellow-500">Services</span>
+    </h2>
+    <p class="text-gray-600 mt-2">
+      Could you be mine. And when the odds are against him and their dangers work to do.<br>
+      You bet your life Speed Racer.
+    </p>
+
+    <!-- Services Icons -->
+    <div class="flex flex-wrap justify-evenly gap-8 mt-10">
+      <!-- Icon 1 -->
+      <div class="text-center">
+        <div class="bg-blue-700 text-white p-4 rounded-lg transform rotate-45 w-24 h-24 flex items-center justify-center">
+          <img src="https://via.placeholder.com/50" alt="Construction" class="transform -rotate-45">
+        </div>
+        <p class="mt-4 font-bold">CONSTRUCTION</p>
+      </div>
+
+      <!-- Icon 2 -->
+      <div class="text-center">
+        <div class="bg-blue-700 text-white p-4 rounded-lg transform rotate-45 w-24 h-24 flex items-center justify-center">
+          <img src="https://via.placeholder.com/50" alt="Masonry" class="transform -rotate-45">
+        </div>
+        <p class="mt-4 font-bold">MASONRY</p>
+      </div>
+
+      <!-- Icon 3 -->
+      <div class="text-center">
+        <div class="bg-blue-700 text-white p-4 rounded-lg transform rotate-45 w-24 h-24 flex items-center justify-center">
+          <img src="https://via.placeholder.com/50" alt="Painting" class="transform -rotate-45">
+        </div>
+        <p class="mt-4 font-bold">PAINTING</p>
+      </div>
+
+      <!-- Icon 4 -->
+      <div class="text-center">
+        <div class="bg-blue-700 text-white p-4 rounded-lg transform rotate-45 w-24 h-24 flex items-center justify-center">
+          <img src="https://via.placeholder.com/50" alt="Plumbing" class="transform -rotate-45">
+        </div>
+        <p class="mt-4 font-bold">PLUMBING</p>
+      </div>
+
+      <!-- Icon 5 -->
+      <div class="text-center">
+        <div class="bg-blue-700 text-white p-4 rounded-lg transform rotate-45 w-24 h-24 flex items-center justify-center">
+          <img src="https://via.placeholder.com/50" alt="Roofing" class="transform -rotate-45">
+        </div>
+        <p class="mt-4 font-bold">ROOFING</p>
+      </div>
+
+      <!-- Icon 6 -->
+      <div class="text-center">
+        <div class="bg-blue-700 text-white p-4 rounded-lg transform rotate-45 w-24 h-24 flex items-center justify-center">
+          <img src="https://via.placeholder.com/50" alt="Architecture" class="transform -rotate-45">
+        </div>
+        <p class="mt-4 font-bold">ARCHITECTURE</p>
+      </div>
+    </div>
+
+    <!-- Bottom Icons Row -->
+    <div class="flex justify-center space-x-10 mt-10">
+      <div class="flex flex-col items-center">
+        <img src="https://via.placeholder.com/50" alt="Innovate" class="mb-2">
+        <p class="font-bold">Innovate</p>
+      </div>
+      <div class="flex flex-col items-center">
+        <img src="https://via.placeholder.com/50" alt="Create" class="mb-2">
+        <p class="font-bold">Create</p>
+      </div>
+      <div class="flex flex-col items-center">
+        <img src="https://via.placeholder.com/50" alt="Deliver" class="mb-2">
+        <p class="font-bold">Deliver</p>
+      </div>
+    </div>
+  </section>
+
+<!--  Project-->
+  <section class=" mx-auto px-4 py-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <!-- Image Card 1 -->
+      <div class="bg-white rounded-lg overflow-hidden shadow-md">
+        <img src="https://via.placeholder.com/300x200" alt="Location 1" class="w-full h-56 object-cover">
+      </div>
+
+      <!-- Image Card 2 -->
+      <div class="bg-white rounded-lg overflow-hidden shadow-md">
+        <img src="https://via.placeholder.com/300x200" alt="Location 2" class="w-full h-56 object-cover">
+      </div>
+
+      <!-- Image Card 3 -->
+      <div class="bg-white rounded-lg overflow-hidden shadow-md">
+        <img src="https://via.placeholder.com/300x200" alt="Location 3" class="w-full h-56 object-cover">
+      </div>
+
+      <!-- Image Card 4 -->
+      <div class="bg-white rounded-lg overflow-hidden shadow-md">
+        <img src="https://via.placeholder.com/300x200" alt="Location 4" class="w-full h-56 object-cover">
+      </div>
+
+      <!-- Image Card 5 -->
+      <div class="bg-white rounded-lg overflow-hidden shadow-md">
+        <img src="https://via.placeholder.com/300x200" alt="Location 5" class="w-full h-56 object-cover">
+      </div>
+
+      <!-- Image Card 6 -->
+      <div class="bg-white rounded-lg overflow-hidden shadow-md">
+        <img src="https://via.placeholder.com/300x200" alt="Location 6" class="w-full h-56 object-cover">
+      </div>
+
+      <!-- Image Card 7 -->
+      <div class="bg-white rounded-lg overflow-hidden shadow-md">
+        <img src="https://via.placeholder.com/300x200" alt="Location 7" class="w-full h-56 object-cover">
+      </div>
+
+      <!-- Image Card 8 -->
+      <div class="bg-white rounded-lg overflow-hidden shadow-md">
+        <img src="https://via.placeholder.com/300x200" alt="Location 8" class="w-full h-56 object-cover">
+      </div>
+
+    </div>
+  </section>
+
+  <section class="max-w-7xl mx-auto px-4 py-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+
+      <!-- Card 1 -->
+      <div class="bg-white rounded-lg shadow-md p-6 text-center">
+        <div class="bg-blue-700 text-white rounded-full h-16 w-16 mx-auto mb-4 flex items-center justify-center">
+          <!-- Icon (Placeholder) -->
+          <span class="text-2xl">🏅</span>
+        </div>
+        <h3 class="font-bold text-xl mb-2">OUR EXPERIENCE SPEAKS</h3>
+        <p class="text-gray-600 mb-4">
+          Doin' it our way. Nothin's gonna turn us back now. Straight ahead and on the track now.
+        </p>
+        <a href="#" class="text-blue-600 font-semibold">READ MORE &rarr;</a>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="bg-white rounded-lg shadow-md p-6 text-center">
+        <div class="bg-blue-700 text-white rounded-full h-16 w-16 mx-auto mb-4 flex items-center justify-center">
+          <!-- Icon (Placeholder) -->
+          <span class="text-2xl">👷</span>
+        </div>
+        <h3 class="font-bold text-xl mb-2">COMPETENT STAFF</h3>
+        <p class="text-gray-600 mb-4">
+          Doin' it our way. Nothin's gonna turn us back now. Straight ahead and on the track now.
+        </p>
+        <a href="#" class="text-blue-600 font-semibold">READ MORE &rarr;</a>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="bg-white rounded-lg shadow-md p-6 text-center">
+        <div class="bg-blue-700 text-white rounded-full h-16 w-16 mx-auto mb-4 flex items-center justify-center">
+          <!-- Icon (Placeholder) -->
+          <span class="text-2xl">🔧</span>
+        </div>
+        <h3 class="font-bold text-xl mb-2">DEPLOYING TECHNOLOGY</h3>
+        <p class="text-gray-600 mb-4">
+          Doin' it our way. Nothin's gonna turn us back now. Straight ahead and on the track now.
+        </p>
+        <a href="#" class="text-blue-600 font-semibold">READ MORE &rarr;</a>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="bg-white rounded-lg shadow-md p-6 text-center">
+        <div class="bg-blue-700 text-white rounded-full h-16 w-16 mx-auto mb-4 flex items-center justify-center">
+          <!-- Icon (Placeholder) -->
+          <span class="text-2xl">🧑‍🔧</span>
+        </div>
+        <h3 class="font-bold text-xl mb-2">EXPERTS AT WORK</h3>
+        <p class="text-gray-600 mb-4">
+          Doin' it our way. Nothin's gonna turn us back now. Straight ahead and on the track now.
+        </p>
+        <a href="#" class="text-blue-600 font-semibold">READ MORE &rarr;</a>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="bg-white rounded-lg shadow-md p-6 text-center">
+        <div class="bg-blue-700 text-white rounded-full h-16 w-16 mx-auto mb-4 flex items-center justify-center">
+          <!-- Icon (Placeholder) -->
+          <span class="text-2xl">🛠️</span>
+        </div>
+        <h3 class="font-bold text-xl mb-2">BEST MATERIALS</h3>
+        <p class="text-gray-600 mb-4">
+          Doin' it our way. Nothin's gonna turn us back now. Straight ahead and on the track now.
+        </p>
+        <a href="#" class="text-blue-600 font-semibold">READ MORE &rarr;</a>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="bg-white rounded-lg shadow-md p-6 text-center">
+        <div class="bg-blue-700 text-white rounded-full h-16 w-16 mx-auto mb-4 flex items-center justify-center">
+          <!-- Icon (Placeholder) -->
+          <span class="text-2xl">⚙️</span>
+        </div>
+        <h3 class="font-bold text-xl mb-2">QUALITY AT EVERY STEP</h3>
+        <p class="text-gray-600 mb-4">
+          Doin' it our way. Nothin's gonna turn us back now. Straight ahead and on the track now.
+        </p>
+        <a href="#" class="text-blue-600 font-semibold">READ MORE &rarr;</a>
+      </div>
+
+      <!-- Card 7 -->
+      <div class="bg-white rounded-lg shadow-md p-6 text-center">
+        <div class="bg-blue-700 text-white rounded-full h-16 w-16 mx-auto mb-4 flex items-center justify-center">
+          <!-- Icon (Placeholder) -->
+          <span class="text-2xl">💰</span>
+        </div>
+        <h3 class="font-bold text-xl mb-2">COMPETITIVE PRICE</h3>
+        <p class="text-gray-600 mb-4">
+          Doin' it our way. Nothin's gonna turn us back now. Straight ahead and on the track now.
+        </p>
+        <a href="#" class="text-blue-600 font-semibold">READ MORE &rarr;</a>
+      </div>
+
+      <!-- Promotional Card -->
+      <div class="bg-yellow-500 rounded-lg shadow-md p-6 text-center">
+        <img src="https://via.placeholder.com/300x150" alt="Project Image" class="rounded-lg mb-4">
+        <h3 class="font-bold text-xl mb-2">HERE @ TANJ</h3>
+        <p class="text-white">
+          We build landmarks. Explore projects.
+        </p>
+        <a href="#" class="bg-white text-yellow-500 px-4 py-2 rounded-full font-semibold mt-4 inline-block">
+          Explore Projects
+        </a>
+      </div>
+
+    </div>
+  </section>
+  <!-- Team Services Section -->
+  <section class="max-w-6xl mx-auto px-4 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+
+      <!-- Card 1 -->
+      <div class="p-6 bg-white rounded-lg shadow-md">
+        <img src="https://via.placeholder.com/150" alt="Engineer" class="mx-auto mb-4 rounded-lg">
+        <h3 class="font-bold text-lg">OUR TEAM OF ENGINEERS</h3>
+        <p class="text-gray-600 mt-2">
+          Could you be mine. And when the odds are against him and their dangers work to do. You bet your life Speed Racer.
+        </p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="p-6 bg-white rounded-lg shadow-md">
+        <img src="https://via.placeholder.com/150" alt="Planning" class="mx-auto mb-4 rounded-lg">
+        <h3 class="font-bold text-lg">METICULOUS PLANNING</h3>
+        <p class="text-gray-600 mt-2">
+          Could you be mine. And when the odds are against him and their dangers work to do. You bet your life Speed Racer.
+        </p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="p-6 bg-white rounded-lg shadow-md">
+        <img src="https://via.placeholder.com/150" alt="Implementation" class="mx-auto mb-4 rounded-lg">
+        <h3 class="font-bold text-lg">SYSTEMATIC IMPLEMENTATION</h3>
+        <p class="text-gray-600 mt-2">
+          Could you be mine. And when the odds are against him and their dangers work to do. You bet your life Speed Racer.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Team Gallery Section -->
+  <section class="bg-gray-50 py-16">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold text-blue-800">
+        Our <span class="text-yellow-500">Great Team</span>
+      </h2>
+      <p class="text-gray-600 mt-4">
+        Sometimes you want to go where everybody knows your name. And they're always glad you came.
+        Straight nin' the curves flatnin' the hills Someday the mountain will.
+      </p>
+    </div>
+
+    <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 px-4">
+
+      <!-- Team Member 1 -->
+      <div class="bg-white rounded-lg shadow-md p-6 text-center">
+        <img src="https://via.placeholder.com/300x300" alt="Team Member" class="rounded-full mx-auto mb-4">
+        <h3 class="font-bold text-xl">John Doe</h3>
+        <p class="text-gray-500">Lead Engineer</p>
+      </div>
+
+      <!-- Team Member 2 -->
+      <div class="bg-white rounded-lg shadow-md p-6 text-center">
+        <img src="https://via.placeholder.com/300x300" alt="Team Member" class="rounded-full mx-auto mb-4">
+        <h3 class="font-bold text-xl">Jane Smith</h3>
+        <p class="text-gray-500">Project Manager</p>
+      </div>
+
+      <!-- Team Member 3 -->
+      <div class="bg-white rounded-lg shadow-md p-6 text-center">
+        <img src="https://via.placeholder.com/300x300" alt="Team Member" class="rounded-full mx-auto mb-4">
+        <h3 class="font-bold text-xl">Steve Brown</h3>
+        <p class="text-gray-500">Senior Architect</p>
+      </div>
+
+      <!-- Team Member 4 -->
+      <div class="bg-white rounded-lg shadow-md p-6 text-center">
+        <img src="https://via.placeholder.com/300x300" alt="Team Member" class="rounded-full mx-auto mb-4">
+        <h3 class="font-bold text-xl">Rachel Green</h3>
+        <p class="text-gray-500">Construction Lead</p>
+      </div>
+
+    </div>
+  </section>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="js/customer/home/index.js"></script>
 </div>
