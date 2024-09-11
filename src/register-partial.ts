@@ -14,7 +14,6 @@ export async function registerPartial() {
     join(__dirname, '..', 'views/customer/components'),
     join(__dirname, '..', 'views/customer/layouts'),
     join(__dirname, '..', 'views/customer/home'),
-    join(__dirname, '..', 'views/customer/product'),
   ];
 
   partialFolders.forEach((partial) => {
