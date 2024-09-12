@@ -1,11 +1,22 @@
 <div>
-    <div class="w-1/3 mb-3">
-        {{> admin-input title="Tiêu đề bài viết" placeholder="Nhập" name='post-title' id='post-title' }}
+    <div class="flex mb-3 items-end">
+        <div class="w-1/3">
+            {{> admin-input title="Tiêu đề bài viết" placeholder="Nhập" name='post-title' id='post-title' }}
 
+        </div>
+        <select
+            id="post-category"
+            class="w-1/3 h-[40px] ml-3 block px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            <option class="text-gray-500">Chọn danh mục</option>
+            {{#each categories}}
+            <option value={{this.id}} class="text-gray-700">{{this.name}}</option>
+            {{/each}}
+        </select>
     </div>
+
     {{> text-editor}}
     <div class="text-end mt-2">
-    {{> admin-button title="Tạo bài viết" id="create-post-content"}}
+        {{> admin-button title="Tạo bài viết" id="create-post-content"}}
     </div>
     <script src="/js/admin/post-content/post-content.js"></script>
 </div>

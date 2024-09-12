@@ -62,8 +62,22 @@ export class PostContentService {
       const postContentEntity = new PostContent()
       postContentEntity.title = insertPostContentDTO.title
       postContentEntity.content = insertPostContentDTO.content
+      const category = await this.postCategoryRepository.findOne({
+        where: { id: Number(insertPostContentDTO.category_id) },
+      });
+      postContentEntity.category = category
       const newPostContent = await this.postContentRepository.save(postContentEntity);
       if (newPostContent) {
+        for (const imageId of insertPostContentDTO.imageIds) {
+          const postImage = await this.postImageRepository.findOne({
+            where: { id: imageId },
+          });
+  
+          if (postImage) {
+            postImage.postContent = newPostContent;
+            await this.postImageRepository.save(postImage);
+          }
+        }
         return {
           status: 200,
         }
@@ -100,6 +114,16 @@ export class PostContentService {
       throw error;
     }
 
+  }
+
+  async getCategories():  Promise<PostCategory[]> {
+    try {
+      const categories = await this.postCategoryRepository.find();
+      return categories 
+    }
+    catch(error) {
+      throw new Error('Error fetching categories');
+    }
   }
 
 }

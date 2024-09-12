@@ -19,8 +19,11 @@ export class PostContentController {
 
   @Get('new')
   @Render('admin/admin-index.hbs')
-  getNewPostContent() {
+  async getNewPostContent() {
+    const categories = await this.postContentService.getCategories()
+    
     return {
+      categories: categories,
       body: () => {
       return 'post-content-new';
       },
@@ -35,6 +38,8 @@ export class PostContentController {
 
   @Post()
   createPostContent(@Body() body: insertPostContentDTO) {
+    console.log(body);
+    
      return this.postContentService.createPostContent(body)    
   }
 

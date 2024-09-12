@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class insertPostContentDTO {
   @IsString()
@@ -8,4 +8,12 @@ export class insertPostContentDTO {
   @IsString()
   @IsNotEmpty()
   content: string;
+
+  @IsString()
+  @IsNotEmpty()
+  category_id: string;
+
+  @IsArray()
+  @IsOptional()
+  imageIds: any[]
 }

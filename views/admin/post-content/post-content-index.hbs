@@ -1,7 +1,8 @@
 <div>
     <div>
         <div class="flex justify-end mb-3">
-            <a href="/admin/post-content/new" class="mr-2">{{> admin-button title="+ Tạo bài viết mới" id="new-post-content" class=
+            <a href="/admin/post-content/new" class="mr-2">{{> admin-button title="+ Tạo bài viết mới"
+                id="new-post-content" class=
                 "hover:bg-cyan-700"}}
             </a>
 
@@ -20,9 +21,13 @@
         <div class="bg-white rounded-lg shadow relative w-full max-w-2xl px-4 h-full md:h-auto">
             <!-- Modal header -->
             <div class="flex items-start justify-between p-5 border-b rounded-t">
-                <h3 class="text-xl font-semibold">
-                    Thể loại bài viết mới
-                </h3>
+                <div>
+                    <h3 class="text-xl font-semibold">
+                        Thể loại bài viết mới
+                    </h3>
+                    <p id="post-categort-message"></p>
+                </div>
+
                 <button type="button"
                     class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
                     id="close-modal-new-post-category">
@@ -36,11 +41,13 @@
             <!-- Modal body -->
             <div class="p-6 space-y-6">
                 <div>
-                    {{> admin-input title="Tên thể loại" placeholder="Nhập" name='name-post-category' id='name-post-category'
+                    {{> admin-input title="Tên thể loại" placeholder="Nhập" name='name-post-category'
+                    id='name-post-category'
                     }}
                 </div>
                 <div>
-                    {{> admin-input title="Mô tả thể loại" placeholder="Nhập" name='description-post-category' id='description-post-category'
+                    {{> admin-input title="Mô tả thể loại" placeholder="Nhập" name='description-post-category'
+                    id='description-post-category'
                     }}
                 </div>
             </div>
