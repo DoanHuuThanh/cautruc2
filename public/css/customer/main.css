@@ -6,12 +6,30 @@ body {
     @apply font-base font-regular text-black text-4 box-border;
 }
 
-.logo {
+.logo-120 {
+    @apply relative w-[120px] h-[120px];
+}
+
+.logo-120::before {
+    content: "";
+    position: absolute;
+    left: -16px;
+    width: 140px;
+    height: 140px;
     background-image: url("/icons/customer/logo.svg");
     background-position: center;
     background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.customer-footer {
+    background-image: linear-gradient(to bottom, #359aeb 0%, #004aad 100%);
 }
 
 .text-link {
-    @apply hover:text-main-yellow hover:transition-all hover:duration-500 cursor-pointer;
+    @apply hover:!text-main-yellow hover:transition-all hover:duration-300 cursor-pointer;
+}
+
+::placeholder {
+    @apply text-3.5 text-gray-light;
 }
