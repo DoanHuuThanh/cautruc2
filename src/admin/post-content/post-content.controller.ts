@@ -1,16 +1,21 @@
-import { Controller, Post, Get, Render, UseInterceptors, UploadedFile, Body } from '@nestjs/common';
+import { Controller, Post, Get, Render, UseInterceptors, UploadedFile, Body, Param, ParseIntPipe } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { PostContentService } from 'src/share/services/post-content.service';
 import { insertPostCategoryDTO, insertPostContentDTO } from './dto';
-
 
 @Controller('admin/post-content')
 export class PostContentController {
   constructor(private postContentService: PostContentService) {}
   @Get()
   @Render('admin/admin-index.hbs')
-  getHello() {
+  async getPostContent() {
+    const postContents = await this.postContentService.getPostContents()
+    const headers = ['STT', 'Tiêu đề', 'Thể loại', 'Hình ảnh'];
+    const keys = ['title', 'category_name', 'url'];
     return {
+      headers: headers,
+      keys:keys,
+      postContents: postContents,
       body: () => {
       return 'post-content-index';
       },
@@ -21,13 +26,27 @@ export class PostContentController {
   @Render('admin/admin-index.hbs')
   async getNewPostContent() {
     const categories = await this.postContentService.getCategories()
-    
     return {
       categories: categories,
       body: () => {
       return 'post-content-new';
       },
   };
+  }
+
+  @Get(':id')
+  @Render('admin/admin-index.hbs')
+  async getPostContentById(@Param('id', ParseIntPipe) postId: number) {
+    const postContent = await this.postContentService.getPostContentById(postId)
+    const categories = await this.postContentService.getCategories()
+    
+    return {
+      categories: categories,
+      postContent: postContent,
+      body: () => {
+        return 'post-content-update'
+      }
+    }
   }
 
   @Post('upload/post-image')
@@ -38,8 +57,6 @@ export class PostContentController {
 
   @Post()
   createPostContent(@Body() body: insertPostContentDTO) {
-    console.log(body);
-    
      return this.postContentService.createPostContent(body)    
   }
 

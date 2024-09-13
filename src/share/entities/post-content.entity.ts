@@ -1,29 +1,24 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
 import { PostImage } from './post-image.entity';
 import { PostCategory } from './post-category.entity';
 import { Admin } from './admin.entity';
+import { BaseEntity } from '../base/base.entity';
 
 @Entity('post_content')
-export class PostContent {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class PostContent extends BaseEntity {
   @Column({ type: 'varchar' })
   title: string;
 
-  @Column({ type: 'boolean',  default: true })
-  status: boolean
+  @Column({ type: 'boolean', default: true })
+  status: boolean;
 
   @Column({ type: 'text' })
   content: string;
 
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
-
-  @OneToMany(() => PostImage, (postImage) => postImage.postContent)
+  @OneToMany(() => PostImage, (postImage) => postImage.postContent, {
+    cascade: true,
+    onDelete: 'CASCADE'
+  })
   images: PostImage[];
 
   @ManyToOne(() => Admin, (admin) => admin.posts)

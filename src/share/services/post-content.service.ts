@@ -6,9 +6,11 @@ import { PostImage } from '../entities/post-image.entity';
 import { PostContent } from '../entities/post-content.entity';
 import { insertPostCategoryDTO, insertPostContentDTO } from 'src/admin/post-content/dto';
 import { PostCategory } from '../entities/post-category.entity';
+import { plainToClass } from 'class-transformer';
+import { PostContentDTO } from 'src/admin/post-content/dto';
 @Injectable()
 export class PostContentService {
-  private readonly uploadPath = './uploads';
+  private readonly uploadPath = './public/uploads';
   constructor(
     @Inject('POST_IMAGE_REPOSITORY')
     private postImageRepository: Repository<PostImage>,
@@ -40,14 +42,13 @@ export class PostContentService {
       await fs.promises.writeFile(filepath, file.buffer);
 
       const postImageEntity = new PostImage();
-      postImageEntity.alt = file.originalname;
-      postImageEntity.url = `http://localhost:3000/uploads/${filename}`;
+      postImageEntity.alt = file.originalname.replace(/\.[^/.]+$/, "");
+      postImageEntity.url = `${filename}`;
       const newPostImage = await this.postImageRepository.save(postImageEntity)
 
       if (newPostImage && newPostImage.url) {
         return {
           id: newPostImage.id,
-          url: newPostImage.url
         };
       } else {
         throw new Error('Failed to save image to database');
@@ -68,16 +69,16 @@ export class PostContentService {
       postContentEntity.category = category
       const newPostContent = await this.postContentRepository.save(postContentEntity);
       if (newPostContent) {
-        for (const imageId of insertPostContentDTO.imageIds) {
-          const postImage = await this.postImageRepository.findOne({
-            where: { id: imageId },
-          });
-  
-          if (postImage) {
-            postImage.postContent = newPostContent;
-            await this.postImageRepository.save(postImage);
+          if(insertPostContentDTO.image_id) {
+            const postImage = await this.postImageRepository.findOne({
+              where: { id: insertPostContentDTO.image_id },
+            });
+    
+            if (postImage) {
+              postImage.postContent = newPostContent;
+              await this.postImageRepository.save(postImage);
+            }
           }
-        }
         return {
           status: 200,
         }
@@ -101,12 +102,14 @@ export class PostContentService {
       if (newPostCategory) {
         return {
           status: 200,
-          msg: "Bạn đã tạo thể loại bài viết thành công"
+          msg: "Bạn đã tạo thể loại bài viết thành công",
+          category: newPostCategory
         }
       }
       else return { 
         status: 404,
-        msg: "Bạn đã tạo thể loại bài viết thất bại" }
+        msg: "Bạn đã tạo thể loại bài viết thất bại",
+       }
 
     }
     catch (error) {
@@ -123,6 +126,39 @@ export class PostContentService {
     }
     catch(error) {
       throw new Error('Error fetching categories');
+    }
+  }
+
+  async getPostContents(): Promise<PostContentDTO[]> {
+    try {
+      const rawPostContents = await this.postContentRepository.find({
+        relations: ['category', 'images']
+      });      
+      const postContents = rawPostContents.map(rawPost => 
+        plainToClass(PostContentDTO, rawPost, { excludeExtraneousValues: true })
+      );
+
+      return postContents;
+    } catch (error) {
+      console.error('Error fetching postContents:', error);
+      throw new Error('Error fetching postContents');
+    }
+  }
+
+  async getPostContentById(postId: number): Promise<PostContentDTO | null> {
+    try {
+      const rawPostContent = await this.postContentRepository.findOne({
+        where: { id: postId },
+        relations: ['category', 'images']
+      });    
+      const postContent = plainToClass(PostContentDTO, rawPostContent, { 
+        excludeExtraneousValues: true 
+      });
+
+      return postContent;
+    } catch (error) {
+      console.error('Error fetching postContents:', error);
+      throw new Error('Error fetching postContents');
     }
   }
 

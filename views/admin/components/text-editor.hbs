@@ -1,6 +1,5 @@
 <div>
-    <div id="editor" class="pl-[30px]"></div>
-    <textarea name="editorContent" id="editorContent" style="display: none;"></textarea>
+    <textarea name="editor" id="editor"></textarea>
 
     <script type="importmap">
         {
@@ -26,7 +25,7 @@
             ImageStyle,
             ImageToolbar,
             AutoImage,
-            FileRepository,
+            Base64UploadAdapter,
             List,
             Link,
             Heading,
@@ -46,7 +45,7 @@
         ClassicEditor
             .create(document.querySelector('#editor'), {
                 plugins: [
-                    Essentials, Bold, Italic, Font, Paragraph, Image, ImageInsert, AutoImage, ImageToolbar, FileRepository, ImageCaption, ImageStyle, ImageResize, List, Link, Heading, BlockQuote, Strikethrough, ListProperties, TodoList, Table, TableToolbar, TableColumnResize, TableCaption, Alignment],
+                    Essentials, Bold, Italic, Font, Paragraph, Image, ImageInsert, AutoImage, ImageToolbar, Base64UploadAdapter, ImageCaption, ImageStyle, ImageResize, List, Link, Heading, BlockQuote, Strikethrough, ListProperties, TodoList, Table, TableToolbar, TableColumnResize, TableCaption, Alignment],
                 toolbar: {
                     items: [
                         'undo', 'redo', '|',
@@ -75,7 +74,6 @@
                         type: 'auto'
                     }
                 },
-                extraPlugins: [CustomUploadAdapterPlugin]
             })
             .then(editor => {
                 window.editor = editor;
