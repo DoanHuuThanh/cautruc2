@@ -1,8 +1,8 @@
-<table class="table-fixed min-w-full divide-y divide-gray-200">
-    <thead class="bg-gray-100">
+<table class="table-fixed min-w-full divide-y divide-gray-200 rounded-lg">
+    <thead class="bg-blue-400 text-white">
         <tr>
             {{#each headers}}
-                <th scope="col" class="p-4 {{#if @first}}text-left text-xs font-medium text-gray-500 uppercase{{/if}}">
+                <th scope="col" class="p-4">
                     {{this}}
                 </th>
             {{/each}}
@@ -32,7 +32,7 @@
                         </td>
                 {{/each}}
                 <td class="p-4 whitespace-nowrap space-x-2 text-end w-[100px]">
-                    <button type="button" data-modal-toggle="product-modal"
+                    <a href="{{../src}}/{{this.id}}" data-modal-toggle="product-modal"
                         class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
                         <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
@@ -43,8 +43,9 @@
                                 clip-rule="evenodd"></path>
                         </svg>
                         Sửa bài viết
-                    </button>
-                    <button type="button" data-modal-toggle="delete-product-modal" data-post_id={{this.id}}
+                        {{src}}
+                    </a>
+                    <button type="button" id={{../button_delete}} data-modal-toggle="delete-product-modal" data-post_id={{this.id}}
                         class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center">
                         <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">

@@ -1,11 +1,12 @@
-import { Controller, Post, Get, Render, UseInterceptors, UploadedFile, Body, Param, ParseIntPipe } from '@nestjs/common';
+import { Controller, Post, Get, Render, UseInterceptors, UploadedFile, Body, Param, ParseIntPipe, Delete, HttpCode, Patch } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { PostContentService } from 'src/share/services/post-content.service';
-import { insertPostCategoryDTO, insertPostContentDTO } from './dto';
+import { insertPostCategoryDTO, updatePostContentDTO } from './dto';
+import { PostImageUploadService } from 'src/share/services/upload-file.service';
 
 @Controller('admin/post-content')
 export class PostContentController {
-  constructor(private postContentService: PostContentService) {}
+  constructor(private postContentService: PostContentService, private postImageUploadService: PostImageUploadService) {}
   @Get()
   @Render('admin/admin-index.hbs')
   async getPostContent() {
@@ -26,7 +27,9 @@ export class PostContentController {
   @Render('admin/admin-index.hbs')
   async getNewPostContent() {
     const categories = await this.postContentService.getCategories()
+    const postContent = await this.postContentService.createPostContent()   
     return {
+      postContent: postContent,
       categories: categories,
       body: () => {
       return 'post-content-new';
@@ -52,12 +55,30 @@ export class PostContentController {
   @Post('upload/post-image')
   @UseInterceptors(FileInterceptor('upload'))
   uploadPostImage(@UploadedFile() file: Express.Multer.File) {
-   return this.postContentService.uploadImage(file)
+   return this.postImageUploadService.uploadFile(file)
   }
 
-  @Post()
-  createPostContent(@Body() body: insertPostContentDTO) {
-     return this.postContentService.createPostContent(body)    
+  @Delete('post-image/:url')
+  @HttpCode(200)
+  deletePostImageByUrl(@Param('url') url: string) {
+    return this.postImageUploadService.deleteFileByUrl(url)
+  }
+
+  @Patch(':id')
+  @UseInterceptors(FileInterceptor('upload'))
+  async updatePostContent(@Param('id', ParseIntPipe) postId: number,@Body() body: updatePostContentDTO,@UploadedFile() file: Express.Multer.File) {    
+    if(body.delete_image) {
+      const image_delete = JSON.parse(body.delete_image) 
+      if (image_delete.length > 0) {
+       await this.postImageUploadService.deleteManyFileByUrl(image_delete)
+      }
+    }
+    return await this.postContentService.updatePostContent(postId,body,file)
+  }
+
+  @Delete(':id')
+  deletePostContent(@Param('id', ParseIntPipe) postId: number) {
+    return this.postContentService.getPostContentById(postId)
   }
 
   @Post('category')

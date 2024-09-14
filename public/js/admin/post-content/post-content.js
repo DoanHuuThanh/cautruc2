@@ -6,6 +6,16 @@ const createPostContent = async () => {
   const imageElementError = document.getElementById('post-image-error');
   const loadingElementError = document.getElementById('loading');
   const ckeditorElementError = document.getElementById('ckeditor-error');
+  const editorElement = document.getElementById('editor');
+  const newPostContenElement = document.getElementById('new-post-content');
+  const new_image = editorElement.dataset.new_image
+    ? JSON.parse(editorElement.dataset.new_image)
+    : [];
+
+  const delete_image = editorElement.dataset.delete_images
+    ? JSON.parse(editorElement.dataset.delete_images)
+    : [];
+  const post_id = newPostContenElement.dataset.post_id;
   const title = titleElement.value;
   const content = editor.getData();
   const category_id = categoryElement.value;
@@ -39,7 +49,7 @@ const createPostContent = async () => {
     hasError = true;
   }
 
-  if (!image_id) {
+  if (!image_url) {
     if (imageElementError) {
       imageElementError.innerHTML = 'Vui lòng chọn ảnh đại diện cho bài viết.';
     }
@@ -59,18 +69,22 @@ const createPostContent = async () => {
 
   try {
     loadingElementError.classList.remove('hidden');
-    const response = await fetch('http://localhost:3000/admin/post-content', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('content', content);
+    formData.append('category_id', category_id);
+    formData.append('new_image', JSON.stringify(new_image));
+    formData.append('delete_image', JSON.stringify(delete_image));
+    const response = await fetch(
+      `http://localhost:3000/admin/post-content/${post_id}`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        },
+        body: formData,
       },
-      body: JSON.stringify({
-        title: title,
-        content: content,
-        category_id: category_id,
-        image_id: image_id,
-      }),
-    });
+    );
     const data = await response.json();
     if (data.status === 200) {
       window.location.href = '/admin/post-content';
@@ -84,86 +98,13 @@ const createPostContent = async () => {
   }
 };
 
-const createPostCategory = async () => {
-  const nameElement = document.getElementById('name-post-category');
-  const messageElement = document.getElementById('post-categort-message');
-  const descriptionElement = document.getElementById(
-    'description-post-category',
-  );
-  const selectCategoryElement = document.getElementById('post-category');
-  const nameElementError = document.getElementById('name-post-category-error');
-  const loadingElementError = document.getElementById('loading');
-  const name = nameElement.value;
-  const description = descriptionElement.value;
-
-  const hasError = false;
-  if (name) {
-    nameElementError.innerHTML = '';
-  }
-
-  if (!nameElement || !name) {
-    if (nameElementError) {
-      nameElementError.innerHTML = 'Vui lòng nhập tên cho thể loại.';
-    }
-    hasError = true;
-  }
-
-  if (hasError) {
-    return;
-  }
-
-  try {
-    loadingElementError.classList.remove('hidden');
-    const response = await fetch(
-      'http://localhost:3000/admin/post-content/category',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: name,
-          description: description,
-        }),
-      },
-    );
-
-    const data = await response.json();
-
-    if (response.ok && data.status === 200) {
-      if (messageElement) {
-        messageElement.classList.add('text-green-500');
-        messageElement.innerHTML = data.msg;
-      }
-      const newOption = document.createElement('option');
-      newOption.value = data.category.id;
-      newOption.text = data.category.name;
-      if (selectCategoryElement) {
-        selectCategoryElement.appendChild(newOption);
-      }
-      if (nameElement) nameElement.value = '';
-      if (descriptionElement) descriptionElement.value = '';
-    } else {
-      if (messageElement) {
-        messageElement.classList.add('text-red-500');
-        messageElement.innerHTML = data.msg;
-      }
-    }
-  } catch (error) {
-    console.error('Error:', error);
-    if (messageElement) {
-      messageElement.classList.add('text-red-500');
-      messageElement.innerHTML =
-        'Đã xảy ra lỗi khi tạo danh mục. Vui lòng thử lại.';
-    }
-  } finally {
-    loadingElementError.classList.add('hidden');
-  }
-};
-
-let image_id;
-const uploadImages = () => {
-  const fileInput = document.getElementById('thumbnail-post-content');
+let image_url;
+const uploadImages = (event) => {
+  const newPostContenElement = document.getElementById('new-post-content');
+  const post_id = newPostContenElement.dataset.post_id
+    ? newPostContenElement.dataset.post_id
+    : null;
+  const fileInput = event.target;
   const files = fileInput.files;
   const previewImage = document.getElementById('thumbnail-preview');
   const uploadStatus = document.createElement('p');
@@ -189,13 +130,13 @@ const uploadImages = () => {
 
     const label = document.querySelector('label[for="thumbnail-post-content"]');
     label.appendChild(uploadStatus);
-    fetch('http://localhost:3000/admin/post-content/upload/post-image', {
-      method: 'POST',
+    fetch(`http://localhost:3000/admin/post-content/${post_id}`, {
+      method: 'PATCH',
       body: formData,
     })
       .then((response) => response.json())
       .then((data) => {
-        image_id = data.id;
+        image_url = data.postContent.url;
         uploadStatus.textContent = '';
       })
       .catch((error) => {
@@ -210,12 +151,6 @@ document
   .getElementById('thumbnail-post-content')
   .addEventListener('change', uploadImages);
 
-document
-  .getElementById('thumbnail-post-content')
-  .addEventListener('change', uploadImages);
-document
-  .getElementById('button-new-post-category')
-  .addEventListener('click', createPostCategory);
 document
   .getElementById('create-post-content')
   .addEventListener('click', createPostContent);

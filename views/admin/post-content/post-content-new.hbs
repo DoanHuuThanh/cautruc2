@@ -1,94 +1,104 @@
-<div>
-    <div class="flex mb-[30px] items-end">
-        <div class="w-1/3">
-            {{> admin-input type="text" title="Tiêu đề bài viết" placeholder="Nhập" name='post-title' id='post-title' id-error= "post-title-error" }}
+<div id="current-image" data-current_image='{{json postContent.images}}'>
+    <div id="new-post-content" data-post_id={{postContent.id}}>
+        <div>
+            <div class="flex mb-[30px] items-end">
+                <div class="w-1/3">
+                    {{> admin-input type="text" title="Tiêu đề bài viết" placeholder="Nhập tiêu đề" name='post-title'
+                    id='post-title' id-error= "post-title-error" }}
 
-        </div>
-        <div class="relative w-1/3 ml-3">
-        <select id="post-category"
-            class="w-full h-[40px] block px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-            <option class="text-gray-500" value="">Chọn danh mục</option>
-            {{#each categories}}
-            <option value={{this.id}} class="text-gray-700">{{this.name}}</option>
-            {{/each}}
-        </select>
-        <p id="post-category-error" class="absolute text-red-500 text-[12px] mt-[5px]"></p>
-        </div>
-        <div class="w-1/3 text-end">
-            {{> admin-button title="+ Tạo thể loại bài viết" id="open-modal-new-post-category" class="bg-orange-500
-            hover:bg-red-300"}}
-        </div>
-    </div>
-</div>
-
-{{> text-editor}}
-<p id="ckeditor-error" class="text-red-500 text-[20px]"></p>
-
-<div class="w-1/2 mt-3">
-    <label for="thumbnail-post-content" class="">
-        <div class="text-center w-1/3 xl:w-1/4 px-5 py-2.5 bg-blue-500 rounded-lg hover:bg-blue-400 cursor-pointer text-white mb-1 text-nowrap">
-           Chọn ảnh đại diện
-        </div>
-        <input id="thumbnail-post-content" type="file" class="hidden" />
-    </label>
-    <div id="image-thumbnail-post-content" class="text-start overflow-hidden">
-        <img id="thumbnail-preview" src="/images/image-icon.svg" class="w-[150px] h-[150px] object-cover" />
-    </div>
-    <p id="post-image-error" class="absolute text-red-500 text-[12px] mt-[5px]"></p>
-</div>
-
-<div class="hidden fixed inset-0 bg-gray-300 bg-opacity-30 z-50 flex justify-center items-center"
-    id="modal-new-post-category">
-    <!-- Modal content -->
-    <div class="bg-white rounded-lg shadow relative w-full max-w-2xl px-4 h-full md:h-auto">
-        <!-- Modal header -->
-        <div class="flex items-start justify-between p-5 border-b rounded-t">
-            <div>
-                <h3 class="text-xl font-semibold">
-                    Thể loại bài viết mới
-                </h3>
-                <p id="post-categort-message"></p>
-            </div>
-
-            <button type="button"
-                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
-                id="close-modal-new-post-category">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd"
-                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                        clip-rule="evenodd"></path>
-                </svg>
-            </button>
-        </div>
-        <!-- Modal body -->
-        <div class="p-6 space-y-6">
-            <div>
-                {{> admin-input type="text" title="Tên thể loại" placeholder="Nhập" name='name-post-category'
-                id='name-post-category' id-error= "name-post-category-error"
-                }}
-            </div>
-            <div>
-                {{> admin-input type="text" title="Mô tả thể loại" placeholder="Nhập" name='description-post-category'
-                id='description-post-category' id-error= "description-post-category-error"
-                }}
+                </div>
+                <div class="relative w-1/3 ml-3">
+                    <select id="post-category"
+                        class="w-full h-[40px] block px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <option class="text-gray-500" value="">Chọn danh mục</option>
+                        {{#each categories}}
+                        <option value={{this.id}} class="text-gray-700">{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                    <p id="post-category-error" class="absolute text-red-500 text-[12px] mt-[5px]"></p>
+                </div>
+                <div class="w-1/3 text-end">
+                    {{> admin-button title="+ Tạo thể loại bài viết" id="open-modal-new-post-category"
+                    class="bg-orange-500
+                    hover:bg-red-300"}}
+                </div>
             </div>
         </div>
-        <!-- Modal footer -->
-        <div class="items-center p-6 rounded-b text-end">
-            <div>{{> admin-button title="Tạo thể loại mới" id="button-new-post-category" class=
-                "hover:bg-cyan-700"}}</div>
+
+        {{> post-editor }}
+        <p id="ckeditor-error" class="text-red-500 text-[20px]"></p>
+
+        <div class="w-1/2 mt-3">
+            <label for="thumbnail-post-content" class="">
+                <div
+                    class="text-center w-1/3 xl:w-1/4 px-5 py-2.5 bg-blue-500 rounded-lg hover:bg-blue-400 cursor-pointer text-white mb-1 text-nowrap">
+                    Chọn ảnh đại diện
+                </div>
+                <input id="thumbnail-post-content" type="file" class="hidden" />
+            </label>
+            <div id="image-thumbnail-post-content" class="text-start overflow-hidden">
+                <img id="thumbnail-preview" src="/images/image-icon.svg" class="w-[150px] h-[150px] object-cover" />
+            </div>
+            <p id="post-image-error" class="absolute text-red-500 text-[12px] mt-[5px]"></p>
         </div>
+
+        <div class="hidden fixed inset-0 bg-gray-300 bg-opacity-30 z-50 flex justify-center items-center"
+            id="modal-new-post-category">
+            <!-- Modal content -->
+            <div class="bg-white rounded-lg shadow relative w-full max-w-2xl px-4 h-full md:h-auto">
+                <!-- Modal header -->
+                <div class="flex items-start justify-between p-5 border-b rounded-t">
+                    <div>
+                        <h3 class="text-xl font-semibold">
+                            Thể loại bài viết mới
+                        </h3>
+                        <p id="post-categort-message"></p>
+                    </div>
+
+                    <button type="button"
+                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+                        id="close-modal-new-post-category">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </div>
+                <!-- Modal body -->
+                <div class="p-6 space-y-6">
+                    <div>
+                        {{> admin-input type="text" title="Tên thể loại" placeholder="Nhập tên thể loại"
+                        name='name-post-category'
+                        id='name-post-category' id-error= "name-post-category-error"
+                        }}
+                    </div>
+                    <div>
+                        {{> admin-input type="text" title="Mô tả thể loại" placeholder="Nhập mô tả thể loại"
+                        name='description-post-category'
+                        id='description-post-category' id-error= "description-post-category-error"
+                        }}
+                    </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="items-center p-6 rounded-b text-end">
+                    <div>{{> admin-button title="Tạo thể loại mới" id="button-new-post-category" class=
+                        "hover:bg-cyan-700"}}</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="loading" class="hidden">
+            {{> admin-loading}}
+        </div>
+
+        <div class="text-center mt-[20px] mb-4">
+            {{> admin-button title="Tạo bài viết" id="create-post-content" class="w-1/4 !py-3"}}
+        </div>
+
+        <script src="/js/admin/post-content/post-content.js"></script>
+        <script src="/js/admin/common/common.js"></script>
+        <script src="/js/admin/post-content/post-category.js"></script>
     </div>
 </div>
-
-<div id="loading" class="hidden">
-{{> admin-loading}}
-</div>
-
-<div class="text-center mt-[20px]">
-    {{> admin-button title="Tạo bài viết" id="create-post-content" class="w-1/4 !py-3"}}
-</div>
-
-<script src="/js/admin/post-content/post-content.js"></script>
-<script src="/js/admin/common/common.js"></script>
 </div>

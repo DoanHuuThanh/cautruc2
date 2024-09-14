@@ -1,8 +1,16 @@
-<div class="col-span-6 sm:col-span-3">
-    <label for="first-name" class="text-sm font-medium text-gray-900 block mb-2">{{title}}</label>
-    <input type={{type}} name={{name}} id={{id}}
-        class="h-[40px] shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg outline-none focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5"
-        placeholder={{ placeholder }}
-    required />
-    <p id="{{id-error}}" class="absolute text-red-500 text-[12px] mt-[5px]"></p>
+<div class='col-span-6 sm:col-span-3'>
+  <label
+    for='first-name'
+    class='text-sm font-medium text-gray-900 block mb-2'
+  >{{title}}</label>
+  <input
+    class='h-[40px] shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg outline-none focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5'
+    type={{type}}
+    placeholder="{{placeholder}}"
+    name={{name}}
+    id={{id}}
+    required
+    value={{value}}
+  >
+  <p id='{{id-error}}' class='absolute text-red-500 text-[12px] mt-[5px]'></p>
 </div>

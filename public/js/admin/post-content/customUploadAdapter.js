@@ -24,19 +24,19 @@ class CustomUploadAdapter {
               .then((response) => response.json())
               .then((data) => {
                 const editorElement = document.getElementById('editor');
-                let currentData = editorElement.dataset.images
-                  ? JSON.parse(editorElement.dataset.images)
+              
+                let currentData = editorElement.dataset.new_image
+                  ? JSON.parse(editorElement.dataset.new_image)
                   : [];
-                currentData.push({
-                  id: data.id,
-                  url: data.url,
-                });
-                editorElement.dataset.images = JSON.stringify(currentData);
+                
+                const shortUrl = data.url.replace('http://localhost:3000/uploads/', '');
+                currentData.push(shortUrl);
+                editorElement.dataset.new_image = JSON.stringify(currentData);
+              
                 resolve({
-                  default: data.url,
-                  id: data.id,
+                  default: data.url
                 });
-              })
+              })                
               .catch((error) => {
                 console.error('Error from server:', error);
                 reject(error);
@@ -57,19 +57,63 @@ export function CustomUploadAdapterPlugin(editor) {
 
   editor.model.document.on('change', () => {
     const editorElement = document.getElementById('editor');
-    editor.model.document.differ.getChanges().forEach((change) => {
+    const currentImageElement = document.getElementById('current-image');
+  
+    editor.model.document.differ.getChanges().forEach(async (change) => {
       if (change.type === 'remove' && change.name === 'imageBlock') {
         const attributes = change.attributes;
         if (attributes) {
-          let currentData = editorElement.dataset.images
-            ? JSON.parse(editorElement.dataset.images)
+          const baseUrl = 'http://localhost:3000/uploads/';
+          const image_url = attributes.get('src').replace(new RegExp('^' + baseUrl), '');
+          let newUrlImage = editorElement.dataset.new_image
+            ? JSON.parse(editorElement.dataset.new_image)
             : [];
-          currentData = currentData.filter(
-            (item) => item.url !== attributes.get('src'),
-          );
-          editorElement.dataset.images = JSON.stringify(currentData);
+          if (newUrlImage.includes(image_url)) {
+            newUrlImage = newUrlImage.filter((url) => url !== image_url);
+            editorElement.dataset.new_image = JSON.stringify(newUrlImage);
+          }
+      
+          let deleteUrlImage = editorElement.dataset.image_deletes
+            ? JSON.parse(editorElement.dataset.image_deletes)
+            : [];
+          if (!deleteUrlImage.includes(image_url)) {
+            deleteUrlImage.push(image_url);
+          }
+          editorElement.dataset.image_deletes = JSON.stringify(deleteUrlImage);
+        }
+      }
+      
+  
+      if (change.type === 'insert' && change.name === 'imageBlock') {
+        const attributes = change.attributes;
+        if (attributes) {
+          const baseUrl = 'http://localhost:3000/uploads/';
+          const image_url = attributes.get('src').replace(new RegExp('^' + baseUrl), '');
+          
+          console.log(currentImageElement.dataset.current_image);
+          
+          let currentUrlImage = currentImageElement.dataset.current_image
+            ? JSON.parse(currentImageElement.dataset.current_image)
+            : [];
+          
+          let deleteUrlImage = editorElement.dataset.image_deletes
+            ? JSON.parse(editorElement.dataset.image_deletes)
+            : [];
+          deleteUrlImage = deleteUrlImage.filter((url) => url !== image_url);
+          editorElement.dataset.image_deletes = JSON.stringify(deleteUrlImage);
+          
+          if (!currentUrlImage.includes(image_url)) {
+            let newUrlImage = editorElement.dataset.new_image
+              ? JSON.parse(editorElement.dataset.new_image)
+              : [];
+            if (!newUrlImage.includes(image_url)) {
+              newUrlImage.push(image_url);
+              editorElement.dataset.new_image = JSON.stringify(newUrlImage);
+            }
+          }
         }
       }
     });
   });
+  
 }
