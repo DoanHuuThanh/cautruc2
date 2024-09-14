@@ -1,21 +1,19 @@
 import { Controller, Get, Inject, Render } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { Constains } from 'src/share/constains/constains';
-import { Product } from 'src/share/entities/product.entity';
-import { Repository } from 'typeorm';
+import { CustomerBaseController } from 'src/share/base/customerBase.controller';
 
 @Controller()
-export class CustomerHomeController {
+export class CustomerHomeController extends CustomerBaseController{
   constructor(
-    private configService: ConfigService,
-    @Inject(Constains.PRODUCT_REPOSITORY)
-    private productRepository: Repository<Product>,
-  ) {}
+  ) {
+    super();
+  }
 
   @Get()
   @Render('customer/customer-index')
   async getHello() {
     return {
+      header: this.customerUI.header,
+      footer: this.customerUI.footer,
       body: () => {
         return 'customer-home-index';
       },

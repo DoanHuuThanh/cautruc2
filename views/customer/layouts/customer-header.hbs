@@ -1,58 +1,141 @@
 <header id="header">
     {{!-- Dòng mail và giờ làm việc --}}
-    <div class="bg-gray px-10 py-3 flex justify-between items-center">
+    <div class="bg-gray px-10 py-3 flex justify-between items-center phone:flex-col phone:gap-y-2 phone:items-start">
         <a class="flex gap-x-2 text-link items-center text-black-light" href="mailto:thinhpk26@gmail.com">
             <i class="fa-regular fa-envelope text-main-yellow text-4"></i>
             <span class="font-lato text-xs font-regular text-3">cautrucbinhchau@gmail.com</span>
         </a>
-        <div class="flex gap-x-2 items-center">
+        <div class="flex gap-x-2 items-center phone:hidden">
             <i class="fa-regular fa-clock text-main-yellow text-4"></i>
             <span class="font-lato text-xs font-regular text-3 text-black-light">Thứ 2 - Thứ 6 : 8h - 17h30</span>
         </div>
+        <div class="hidden gap-x-2 items-center phone:flex">
+            <i class="fa-solid fa-location-dot text-main-yellow text-4"></i>
+            <span class="font-lato text-xs font-regular text-3 text-black-light">Số 24 Đường Lý Thường Kiệt, Phường Hòa
+                Bình, Thành Phố Bắc Ninh</span>
+        </div>
+        <div class="hidden gap-x-2 items-center phone:flex">
+            <i class="fa-solid fa-phone text-main-yellow text-4"></i>
+            <span class="font-lato text-xs font-regular text-3 text-black-light">0393583026</span>
+        </div>
     </div>
     {{!-- Dòng Logo địa chỉ --}}
-    <div class="mx-10 flex justify-between items-center border-b border-b-separate">
+    <div class="mx-10 flex justify-between items-center border-b border-b-separate phone:justify-center">
         <div class="flex py-5 items-center">
             <div class="logo-120 bg-cover"></div>
-            <span class="font-bold text-5 whitespace-nowrap">BÌNH CHÂU</span>
+            <span class="font-bold text-5 whitespace-nowrap phone:hidden">BÌNH CHÂU</span>
         </div>
-        <div class="flex gap-x-4 h-10">
+        <div class="flex gap-x-4 h-10 tablet:flex-col tablet:gap-y-6 tablet:justify-center phone:hidden">
             <div class="flex gap-x-4 items-center">
-                <i class="fa-solid fa-location-dot text-main-yellow text-5"></i>
+                <i class="fa-solid fa-location-dot text-main-yellow text-5 flex justify-center items-center w-7"></i>
                 <span class="border-e border-b-separate h-full"></span>
-                <span class="text-3.5 font-lato text-black-light">Số 24 Đường Lý Thường Kiệt<br>Phường Hòa Bình, Thành Phố Bắc Ninh</span>
+                <span class="text-3.5 font-lato text-black-light">Số 24 Đường Lý Thường Kiệt<br>Phường Hòa Bình, Thành
+                    Phố Bắc Ninh</span>
             </div>
             <div class="flex gap-x-4 items-center">
-                <i class="fa-solid fa-phone text-main-yellow text-5"></i>
+                <i class="fa-solid fa-phone text-main-yellow text-5 flex justify-center items-center w-7"></i>
                 <span class="border-e border-b-separate h-full"></span>
                 <span class="text-3.5 font-lato text-black-light">0393583026<br>0393583026</span>
             </div>
         </div>
     </div>
     {{!-- Dòng navbar --}}
-    <nav class="pe-10 ps-8 py-4 flex justify-between items-center">
-        <div id="nav" class="flex">
-            <div class="px-3 py-2 text-link font-bold text-3.5">
-                TRANG CHỦ
-            </div>
-            <div class="px-3 py-2 text-link font-bold text-3.5">
-                GIỚI THIỆU
-            </div>
-            <div class="px-3 py-2 text-link font-bold text-3.5">
-                DỰ ÁN
-            </div>
-            <div class="px-3 py-2 text-link font-bold text-3.5">
-                DANH MỤC
-            </div>
-            <div class="px-3 py-2 text-link font-bold text-3.5">
-                BÀI VIẾT
-            </div>
-            <div class="px-3 py-2 text-link font-bold text-3.5">
-                LIÊN HỆ
-            </div>
+    <nav class="pe-10 ps-8 flex justify-between items-center">
+        <ul id="nav" class="flex phone:hidden">
+            {{#each header.navBar}}
+            <li class="relative computer-nav-item z-[99]">
+                <a class="text-link font-bold text-3.5 py-5 block" href="{{href}}">
+                    <div class="flex px-3 gap-x-2">
+                        {{title}}
+                        {{#if this.subNav}}
+                            <i class="fa-solid fa-chevron-down text-3.5"></i>
+                        {{/if}}
+                    </div>
+                </a>
+                {{#if this.subNav}}
+                    <ul class="computer-nav-active hidden absolute top-full -left-2 bg-white w-[220px] shadow-main">
+                        {{#each this.subNav}}
+                            {{> nav-item href=this.href title=this.title navBar=this.subNav}}
+                        {{/each}}
+                    </ul>
+                {{/if}}
+            </li>
+            {{/each}}
+        </ul>
+        <div class="hidden phone:flex gap-x-2 items-center text-link py-5" id="navbar"> 
+            <i class="fa-solid fa-bars text-6xl"></i>
+            <span class="font-medium text-3.5 ">Menu</span>
         </div>
         <div class="search">
             <i class="fa-solid fa-magnifying-glass text-6xl text-link"></i>
         </div>
     </nav>
+    {{!-- navbar cho điện thoại --}}
+    <div class="nav-phone tablet:hidden computer:hidden flex justify-end" id="nav-phone">
+        <div id="nav" class="bg-white w-[260px]">
+            <div class="flex justify-between border-b border-b-separate h-9">
+                <div class="flex justify-center items-center h-9 w-9 text-link" id="nav-phone-back" data-nav-current-level="0">
+                    <i class="nav-phone-back-icon fa-solid fa-arrow-left hidden"></i>
+                </div>
+                <div class="flex justify-center items-center h-9 w-9 text-link" id="nav-phone-close">
+                    <i class="fa-solid fa-x text-6xl"></i>
+                </div>
+            </div>
+            <ul>
+                {{#each header.navBar}}
+                    {{> nav-item href=this.href title=this.title navBar=this.navBar isPhone="1"}}
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+    <script>
+        $(document).ready(() => {
+            /**
+             * hiển thị navbar
+             * Created By: Nguyễn Văn Thịnh (14/09/2024)
+             */
+            $('#navbar').on('click', (e) => {
+                $('#nav-phone').addClass("nav-phone-active");
+            });
+
+            /**
+             * Ẩn navbar
+             * Created By: Nguyễn Văn Thịnh (14/09/2024)
+             */
+            $('#nav-phone-close').on('click', (e) => {
+                $('#nav-phone').removeClass("nav-phone-active");
+                $('.sub-nav-content').removeClass('!flex');
+                $('#nav-phone-back > .nav-phone-back-icon').removeClass('!flex');
+            })
+
+            /**
+             * Sự kiện hiển thị subnav
+             * Created By: Nguyễn Văn Thịnh (14/09/2024)
+             */
+            $('.sub-nav-icon').on('click', (e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                $(e.currentTarget).find('> .sub-nav-content').addClass('!flex');
+                $('#nav-phone-back > .nav-phone-back-icon').addClass('!flex');
+                // Đánh dấu cấp của subnav
+                $('#nav-phone-back').attr('data-nav-current-level', $(e.currentTarget).attr('data-nav-level'));
+            })
+
+            /**
+             * Sự kiện back lại
+             * Created By: Nguyễn Văn Thịnh (14/09/2024)
+             */
+            $('#nav-phone-back').on('click', (e) => {
+                // ẩn cấp hiện tại
+                const level = $('#nav-phone-back').attr('data-nav-current-level');
+                $(`.sub-nav-icon[data-nav-level="${level}"]`).find('> .sub-nav-content').removeClass('!flex');
+                // Đánh dấu cấp của subnav
+                $('#nav-phone-back').attr('data-nav-current-level', level - 1);
+                
+                if(level <= 1) {
+                    $('#nav-phone-back > .nav-phone-back-icon').removeClass('!flex');
+                }
+            })
+        })
+    </script>
 </header>

@@ -31,6 +31,15 @@ module.exports = {
       '4.5': ['18px', '28px'],
       '5': ['20px', '28px']
     },
+    boxShadow: {
+      'main': '0 0 2px 1px rgba(0,0,0,0.1)',
+    },
+    screens: {
+      'phone': {'max': '639px', 'min': '0px'},
+      'tablet': {'max': '1023px', 'min': '640px'},
+      'no-computer': {'max': '1023px', 'min': '0px'},
+      'computer': {'min': '1024px'}
+    },
     extend: {},
   },
   plugins: [],
