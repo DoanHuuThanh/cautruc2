@@ -78,7 +78,7 @@ export class PostContentController {
 
   @Delete(':id')
   deletePostContent(@Param('id', ParseIntPipe) postId: number) {
-    return this.postContentService.getPostContentById(postId)
+    return this.postContentService.deletePostContentById(postId)
   }
 
   @Post('category')

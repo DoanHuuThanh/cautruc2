@@ -12,12 +12,16 @@ export class PostContentDTO {
   content: string;
 
   @Expose()
+  subtitle: string;
+
+  @Expose()
   @Transform(({ obj }) => (obj.category ? obj.category.id : null))
   category_id: number;
 
   @Expose()
   @Transform(({ obj }) => (obj.category ? obj.category.name : null))
   category_name: string;
+
   @Expose()
   @Transform(({ obj }) =>
     obj.images ? obj.images.map((image) => image.url) : null,

@@ -73,6 +73,7 @@ export class PostContentService {
 
         postEntity.content = updatePostContentDTO.content;
         postEntity.title = updatePostContentDTO.title;
+        postEntity.subtitle = updatePostContentDTO.subtitle
         postEntity.category = category;
         const new_image = JSON.parse(updatePostContentDTO.new_image);
         if (updatePostContentDTO.new_image && new_image.length > 0) {

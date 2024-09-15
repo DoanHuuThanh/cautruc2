@@ -8,6 +8,9 @@ export class PostContent extends BaseEntity {
   @Column({ type: 'varchar', nullable: true })
   title: string;
 
+  @Column({ type: 'text', nullable: true })
+  subtitle: string;
+
   @Column({ type: 'boolean', default: true, nullable: true })
   status: boolean;
 

@@ -1,13 +1,32 @@
+import { toggleModal } from "../common/common.js";
+
 const createPostContent = async () => {
   const titleElement = document.getElementById('post-title');
   const categoryElement = document.getElementById('post-category');
   const titleElementError = document.getElementById('post-title-error');
   const categoryElementError = document.getElementById('post-category-error');
   const imageElementError = document.getElementById('post-image-error');
-  const loadingElementError = document.getElementById('loading');
+  const loadingElement = document.getElementById('loading');
   const ckeditorElementError = document.getElementById('ckeditor-error');
   const editorElement = document.getElementById('editor');
   const newPostContenElement = document.getElementById('new-post-content');
+  const subtitlePostContentElement = document.getElementById('subtitle-post-content')
+
+  if (
+    !titleElement ||
+    !categoryElement ||
+    !titleElementError ||
+    !categoryElementError ||
+    !imageElementError ||
+    !loadingElement ||
+    !ckeditorElementError ||
+    !editorElement ||
+    !newPostContenElement ||
+    !subtitlePostContentElement
+  ) {
+    return;
+  }
+
   const new_image = editorElement.dataset.new_image
     ? JSON.parse(editorElement.dataset.new_image)
     : [];
@@ -15,52 +34,42 @@ const createPostContent = async () => {
   const delete_image = editorElement.dataset.delete_images
     ? JSON.parse(editorElement.dataset.delete_images)
     : [];
+
   const post_id = newPostContenElement.dataset.post_id;
   const title = titleElement.value;
   const content = editor.getData();
   const category_id = categoryElement.value;
-  if (titleElementError) {
-    titleElementError.innerHTML = '';
-  }
-  if (categoryElementError) {
-    categoryElementError.innerHTML = '';
-  }
-  if (imageElementError) {
-    imageElementError.innerHTML = '';
-  }
-
-  if (content) {
-    ckeditorElementError.innerHTML = '';
-  }
+  const subtitle = subtitlePostContentElement.value
 
   let hasError = false;
 
-  if (!titleElement || !title) {
-    if (titleElementError) {
-      titleElementError.innerHTML = 'Vui lòng nhập tiêu đề cho bài viết.';
-    }
+  if (!title) {
+    titleElementError.innerHTML = 'Vui lòng nhập tiêu đề cho bài viết.';
     hasError = true;
+  } else {
+    titleElementError.innerHTML = '';
   }
 
-  if (!categoryElement || !category_id) {
-    if (categoryElementError) {
-      categoryElementError.innerHTML = 'Vui lòng chọn thể loại cho bài viết.';
-    }
+  if (!category_id) {
+    categoryElementError.innerHTML = 'Vui lòng chọn thể loại cho bài viết.';
     hasError = true;
-  }
-
-  if (!image_url) {
-    if (imageElementError) {
-      imageElementError.innerHTML = 'Vui lòng chọn ảnh đại diện cho bài viết.';
-    }
-    hasError = true;
+  } else {
+    categoryElementError.innerHTML = '';
   }
 
   if (!content) {
-    if (imageElementError) {
-      ckeditorElementError.innerHTML = 'Vui lòng nhập nội dung  cho bài viết.';
-    }
+    ckeditorElementError.innerHTML = 'Vui lòng nhập nội dung cho bài viết.';
     hasError = true;
+  } else {
+    ckeditorElementError.innerHTML = '';
+  }
+
+  if(!image_url) {
+    imageElementError.innerHTML = 'Vui lòng chọn hình ảnh đại diện.';
+    hasError = true;
+  }
+  else {
+    imageElementError.innerHTML = '';
   }
 
   if (hasError) {
@@ -68,23 +77,24 @@ const createPostContent = async () => {
   }
 
   try {
-    loadingElementError.classList.remove('hidden');
+    if (loadingElement) loadingElement.classList.remove('hidden');
+
     const formData = new FormData();
     formData.append('title', title);
     formData.append('content', content);
     formData.append('category_id', category_id);
     formData.append('new_image', JSON.stringify(new_image));
     formData.append('delete_image', JSON.stringify(delete_image));
-    const response = await fetch(
-      `http://localhost:3000/admin/post-content/${post_id}`,
-      {
-        method: 'PATCH',
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        },
-        body: formData,
+    formData.append('subtitle', subtitle);
+
+    const response = await fetch(`/admin/post-content/${post_id}`, {
+      method: 'PATCH',
+      headers: {
+        'Access-Control-Allow-Origin': '*',
       },
-    );
+      body: formData,
+    });
+
     const data = await response.json();
     if (data.status === 200) {
       window.location.href = '/admin/post-content';
@@ -94,7 +104,7 @@ const createPostContent = async () => {
   } catch (error) {
     console.error('Error:', error);
   } finally {
-    loadingElementError.classList.add('hidden');
+    if (loadingElement) loadingElement.classList.add('hidden');
   }
 };
 
@@ -130,7 +140,7 @@ const uploadImages = (event) => {
 
     const label = document.querySelector('label[for="thumbnail-post-content"]');
     label.appendChild(uploadStatus);
-    fetch(`http://localhost:3000/admin/post-content/${post_id}`, {
+    fetch(`/admin/post-content/${post_id}`, {
       method: 'PATCH',
       body: formData,
     })
@@ -147,10 +157,28 @@ const uploadImages = (event) => {
   }
 };
 
-document
-  .getElementById('thumbnail-post-content')
-  .addEventListener('change', uploadImages);
+const thumbnailPostContentElement = document.getElementById('thumbnail-post-content');
+const buttonCreatePostContentElement = document.getElementById('create-post-content');
 
-document
-  .getElementById('create-post-content')
-  .addEventListener('click', createPostContent);
+if (thumbnailPostContentElement) {
+  thumbnailPostContentElement.addEventListener('change', uploadImages);
+}
+
+if (buttonCreatePostContentElement) {
+  buttonCreatePostContentElement.addEventListener('click', createPostContent);
+}
+
+const openModalElement = document.getElementById('open-modal-new-post-category');
+const closeModalElement = document.getElementById('close-modal-new-post-category');
+
+if (openModalElement) {
+  openModalElement.addEventListener('click', () => {
+    toggleModal('modal-new-post-category', 'open');
+  });
+}
+
+if (closeModalElement) {
+  closeModalElement.addEventListener('click', () => {
+    toggleModal('modal-new-post-category', 'close');
+  });
+}

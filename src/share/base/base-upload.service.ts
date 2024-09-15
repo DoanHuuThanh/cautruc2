@@ -66,7 +66,7 @@ export class BaseUploadService<T extends { id: number; url: string; alt?: string
     }
   }
 
-  async deleteManyFileByUrl(urls: string[]): Promise<void> {
+  async deleteManyFileByUrl(urls: any[]): Promise<void> {
     if (urls.length === 0) {
       throw new BadRequestException('No URLs provided');
     }

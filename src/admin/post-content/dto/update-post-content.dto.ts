@@ -15,6 +15,10 @@ export class updatePostContentDTO {
 
   @IsString()
   @IsOptional()
+  subtitle: string
+
+  @IsString()
+  @IsOptional()
   new_image?: string
 
   @IsString()
