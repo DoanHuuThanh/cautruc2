@@ -1,3 +1,5 @@
+import { CustomerPage } from "../enum/customer-page";
+
 export interface CustomerUI {
   header: CustomerHeader; // Thông tin header
   footer: CustomerFooter; // Thông tin footer
@@ -5,6 +7,7 @@ export interface CustomerUI {
 
 export interface CustomerNav {
   id?: number; // định danh item navbar
+  page?: CustomerPage, // page của nav
   level: number; // level của item navbar
   title: string; // Text của navbar
   href: string; // link đi đâu
@@ -13,6 +16,10 @@ export interface CustomerNav {
 
 export interface CustomerHeader {
   navBar: CustomerNav[]; // thông tin navbar
+  isOtherHome: boolean; // Có phải home không
+  navItemID?: number; // id của item nav
+  navItemName?: string; // Tên của item hiện tại
+  imgUrl?: string; // url của ảnh trong từng màn hình 
 }
 
 export interface CustomerFooter {
