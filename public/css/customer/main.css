@@ -6,12 +6,60 @@ body {
     @apply font-base font-regular text-black text-4 box-border;
 }
 
-.logo {
+.logo-120 {
+    @apply relative w-[120px] h-[120px];
+}
+
+.logo-120::before {
+    content: "";
+    position: absolute;
+    width: 120px;
+    height: 120px;
     background-image: url("/icons/customer/logo.svg");
     background-position: center;
     background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.customer-footer {
+    background-image: linear-gradient(to bottom, #359aeb 0%, #004aad 100%);
 }
 
 .text-link {
-    @apply hover:text-main-yellow hover:transition-all hover:duration-500 cursor-pointer;
+    @apply hover:!text-main-yellow hover:transition-all hover:duration-300 cursor-pointer;
+}
+
+::placeholder {
+    @apply text-3.5 text-gray-light;
+}
+
+.nav-phone {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: opacity 0.3s 0s, visibility 0s 0.3s, transform 0.3s 0s;
+    z-index: 98;
+    position: fixed;
+}
+
+.nav-phone.nav-phone-active {
+    display: flex;
+}
+
+.computer-nav-item:hover > ul {
+    display: block;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+}
+li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }

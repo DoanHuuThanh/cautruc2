@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <title>Cầu trục Bình Châu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {{!-- font gg --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,11 +12,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     {{!-- css --}}
     <link rel="stylesheet" href="css/customer/main-output.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   </head>
   <body>
-    {{> customer-header }}
+    {{> customer-header header=header}}
     {{> (body) }}
-    {{> customer-footer }}
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    {{> customer-footer footer=footer}}
   </body>
 </html>

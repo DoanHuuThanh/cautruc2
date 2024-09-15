@@ -1,0 +1,37 @@
+{{#if isPhone}}
+    <li class="border-b border-b-separate flex justify-between items-center h-9">
+        <a class="px-3 py-2 text-link font-bold text-3.5 flex-1" href="{{href}}">
+            {{title}}
+        </a>
+        {{#if subNav}}
+        <div class="sub-nav-icon flex justify-center items-center h-9 w-9" data-nav-level="{{level}}">
+            <i class="fa-solid fa-chevron-right text-link text-6xl"></i>
+            <ul class="fixed sub-nav-content w-[260px] bg-white right-0 top-9 bottom-0 flex-col hidden" id="sub-nav-item">
+                {{#each subNav}}
+                {{> nav-item href=this.href title=this.title subNav=this.subNav level=this.level isPhone="1"}}
+                {{/each}}
+            </ul>
+        </div>
+        {{/if}}
+    </li>
+{{else}}
+    <li class="h-9 computer-nav-item relative">
+        <div class="flex justify-between items-center text-link">
+            <a class="px-3 py-2 font-bold text-3.5 flex-1" href="{{href}}">
+                {{title}}
+            </a>
+            {{#if subNav}}
+            <div class="flex justify-center items-center h-9 w-9">
+                <i class="fa-solid fa-chevron-right text-6xl"></i>
+            </div>
+            {{/if}}
+        </div>
+        {{#if subNav}}
+        <ul class="w-[220px] bg-white left-full top-0 flex-col absolute hidden computer-nav-active shadow-main z-999">
+            {{#each subNav}}
+            {{> nav-item href=this.href title=this.title subNav=this.subNav}}
+            {{/each}}
+        </ul>
+        {{/if}}
+    </li>
+{{/if}}
