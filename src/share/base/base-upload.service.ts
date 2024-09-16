@@ -3,15 +3,18 @@ import { In, Repository } from 'typeorm';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import { v4 as uuidv4 } from 'uuid';
+import { ConfigService } from '@nestjs/config';
+import { AdminBaseService } from './admin-base.service';
 
 @Injectable()
-export class BaseUploadService<T extends { id: number; url: string; alt?: string }> {
-  private readonly uploadPath = './public/uploads';
-
+export class BaseUploadService<T extends { id: number; url: string; alt?: string }> extends AdminBaseService {
   constructor(
     @Inject('REPOSITORY')
     private readonly fileRepository: Repository<T>,
+    @Inject()
+    public readonly configSV: ConfigService,
   ) {
+    super(configSV);
     this.ensureUploadsDirExists();
   }
 
@@ -43,7 +46,7 @@ export class BaseUploadService<T extends { id: number; url: string; alt?: string
 
       return {
         id: savedFile.id,
-        url: `http://localhost:3000/uploads/${savedFile.url}`,
+        url: `${this.fileLink}/${savedFile.url}`,
       };
     } catch (error) {
       throw new BadRequestException('Failed to upload file');
@@ -51,6 +54,8 @@ export class BaseUploadService<T extends { id: number; url: string; alt?: string
   }
 
   async deleteFileByUrl(url: string): Promise<void> {
+    // loại bỏ đường dẫn đến image
+    url = url.replace(`${this.fileLink}/`, '');
     const file = await this.fileRepository.findOne({ where: { url: url } as any });
     if (!file) {
       throw new BadRequestException('File not found');
@@ -70,7 +75,11 @@ export class BaseUploadService<T extends { id: number; url: string; alt?: string
     if (urls.length === 0) {
       throw new BadRequestException('No URLs provided');
     }
-  
+    // loại bỏ link folder
+    urls = urls.map(url => {
+      url = url.replace(`${this.fileLink}/`, '');
+    });
+
     const files = await this.fileRepository.find({
       where: { url: In(urls) } as any
     });

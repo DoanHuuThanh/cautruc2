@@ -17,9 +17,11 @@ import { PostCategory } from '../entities/post-category.entity';
 import { plainToClass } from 'class-transformer';
 import { PostContentDTO } from 'src/admin/post-content/dto';
 import { v4 as uuidv4 } from 'uuid';
+import { AdminBaseService } from '../base/admin-base.service';
+import { ConfigService } from '@nestjs/config';
+
 @Injectable()
-export class PostContentService {
-  private readonly uploadPath = './public/uploads';
+export class PostContentService extends AdminBaseService{
   constructor(
     @Inject('POST_IMAGE_REPOSITORY')
     private postImageRepository: Repository<PostImage>,
@@ -27,7 +29,10 @@ export class PostContentService {
     private postContentRepository: Repository<PostContent>,
     @Inject('POST_CATEGORY_REPOSITORY')
     private postCategoryRepository: Repository<PostCategory>,
+    @Inject()
+    public configSV: ConfigService
   ) {
+    super(configSV);
     this.ensureUploadsDirExists();
   }
 
@@ -75,8 +80,8 @@ export class PostContentService {
         postEntity.title = updatePostContentDTO.title;
         postEntity.subtitle = updatePostContentDTO.subtitle
         postEntity.category = category;
-        const new_image = JSON.parse(updatePostContentDTO.new_image);
-        if (updatePostContentDTO.new_image && new_image.length > 0) {
+        const new_image = JSON.parse(updatePostContentDTO.new_image)?.map(ni => ni.replace(`${this.fileLink}/`, ''));
+        if (updatePostContentDTO.new_image && new_image?.length > 0) {
           const postImages = await this.postImageRepository.findBy({
             url: In(new_image),
           });
