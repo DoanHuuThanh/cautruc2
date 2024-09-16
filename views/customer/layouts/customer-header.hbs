@@ -22,7 +22,8 @@
     </div>
     <div class="header-content relative {{#if header.isOtherHome}}h-[480px]{{/if}}">
         {{!-- Dòng Logo địa chỉ --}}
-        <div class="mx-[120px] flex justify-between items-center border-b border-b-separate phone:justify-center {{#if header.isOtherHome}}text-white{{/if}}">
+        <div
+            class="mx-[120px] relative z-10 flex justify-between items-center border-b border-b-separate phone:justify-center {{#if header.isOtherHome}}text-white{{/if}}">
             <div class="flex py-5 items-center">
                 <div class="logo-120 bg-cover"></div>
                 <span class="font-bold text-5 whitespace-nowrap phone:hidden">BÌNH CHÂU</span>
@@ -32,19 +33,22 @@
                     <i
                         class="fa-solid fa-location-dot text-main-yellow text-5 flex justify-center items-center w-7"></i>
                     <span class="border-e border-b-separate h-full"></span>
-                    <span class="text-3.5 font-lato text-black-light {{#if header.isOtherHome}}text-white{{/if}}">Số 24 Đường Lý Thường Kiệt<br>Phường Hòa Bình,
+                    <span class="text-3.5 font-lato text-black-light {{#if header.isOtherHome}}text-white{{/if}}">Số 24
+                        Đường Lý Thường Kiệt<br>Phường Hòa Bình,
                         Thành
                         Phố Bắc Ninh</span>
                 </div>
                 <div class="flex gap-x-4 items-center">
                     <i class="fa-solid fa-phone text-main-yellow text-5 flex justify-center items-center w-7"></i>
                     <span class="border-e border-b-separate h-full"></span>
-                    <span class="text-3.5 font-lato text-black-light {{#if header.isOtherHome}}text-white{{/if}}">0393583026<br>0393583026</span>
+                    <span
+                        class="text-3.5 font-lato text-black-light {{#if header.isOtherHome}}text-white{{/if}}">0393583026<br>0393583026</span>
                 </div>
             </div>
         </div>
         {{!-- Dòng navbar cho máy tính và tablet --}}
-        <nav class="mx-[120px] flex justify-between items-center relative z-10 {{#if header.isOtherHome}}bg-gray-light-3 text-white{{/if}}">
+        <nav
+            class="mx-[120px] flex justify-between items-center relative z-10 {{#if header.isOtherHome}}bg-gray-light-3 text-white{{/if}}">
             <ul id="nav-computer" class="flex phone:hidden">
                 {{#each header.navBar}}
                 <li class="relative computer-nav-item z-[99]">
@@ -57,7 +61,8 @@
                         </div>
                     </a>
                     {{#if this.subNav}}
-                    <ul class="computer-nav-active py-4 hidden absolute top-full -left-2 bg-white min-w-[200px] shadow-main text-black-light">
+                    <ul
+                        class="computer-nav-active py-4 hidden absolute top-full -left-2 bg-white min-w-[200px] shadow-main text-black-light">
                         {{#each this.subNav}}
                         {{> nav-item href=this.href title=this.title navBar=this.subNav}}
                         {{/each}}
@@ -77,10 +82,12 @@
         {{!-- Khi là other thì hiển thị hình ảnh này --}}
         {{#if header.isOtherHome}}
         {{!-- url hình ảnh --}}
-        <img class="absolute top-0 w-full h-full -z-10" src="{{header.imgUrl}}" alt="banner">
-        <div class="absolute bg-overlay-black top-0 w-full h-full -z-10 flex justify-end items-end {{#if header.isOtherHome}}text-white{{/if}}">
+        <img class="absolute top-0 w-full h-full" src="{{header.imgUrl}}" alt="banner">
+        <div
+            class="absolute bg-overlay-black top-0 w-full h-full flex justify-end items-end {{#if header.isOtherHome}}text-white{{/if}}">
             <div class="my-5 flex gap-2 me-[120px] items-end font-bold">
-                <a href="/" class="text-link text-3">TRANG CHỦ</a><span class="text-main-yellow text-3">/</span><span class="text-[36px] leading-9">{{header.navItemName}}</span>
+                <a href="/" class="text-link text-3">TRANG CHỦ</a><span class="text-main-yellow text-3">/</span><span
+                    class="text-[36px] leading-9">{{header.navItemName}}</span>
             </div>
         </div>
         {{/if}}
