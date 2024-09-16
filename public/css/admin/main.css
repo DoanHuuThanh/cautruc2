@@ -3,7 +3,44 @@
 @tailwind utilities;
 
 .todo-list__label,
- ol,
- ul {
+ol,
+ul {
     margin-left: 30px;
+}
+
+.toggle-label {
+    position: relative;
+    display: block;
+    width: 28px;
+    height: 16px;
+    border-radius: 9999px;
+    background-color: #EDF2F6;
+    transition: background-color 0.15s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.toggle-label:before {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    display: block;
+    content: "";
+    width: 14px;
+    height: 14px;
+    border-radius: 9999%;
+    background-color: white;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 40%;
+    background-image: url("data:image/svg+xml;utf8,<svg width='6' height='7' viewBox='0 0 6 7' xmlns='http://www.w3.org/2000/svg'><path fillRule='evenodd' clip-rule='evenodd' d='M4.5289 1.29665C4.79444 0.89618 5.30383 0.80913 5.66665 1.10223C6.02947 1.39533 6.10833 1.95758 5.84279 2.35806L3.52387 5.85532C3.16312 6.39938 2.38628 6.45753 1.94856 5.97323L0.237759 4.08039C-0.0797907 3.72905 -0.0791707 3.1601 0.239129 2.8096C0.557429 2.4591 1.07289 2.45978 1.39044 2.81111L2.62155 4.17322L4.5289 1.29665Z' fill='%230095FF'/></svg>");
+    transition: transform 0.15s cubic-bezier(0, 0, 0.2, 1);
+    transform: translateX(0);
+}
+
+.toggle-checkbox:checked + .toggle-label {
+    background-color: #0095FF;
+}
+
+.toggle-checkbox:checked + .toggle-label:before {
+    transform: translateX(12px);
+    background-image: url("data:image/svg+xml;utf8,<svg width='6' height='7' viewBox='0 0 6 7' xmlns='http://www.w3.org/2000/svg'><path fillRule='evenodd' clip-rule='evenodd' d='M4.5289 1.29665C4.79444 0.89618 5.30383 0.80913 5.66665 1.10223C6.02947 1.39533 6.10833 1.95758 5.84279 2.35806L3.52387 5.85532C3.16312 6.39938 2.38628 6.45753 1.94856 5.97323L0.237759 4.08039C-0.0797907 3.72905 -0.0791707 3.1601 0.239129 2.8096C0.557429 2.4591 1.07289 2.45978 1.39044 2.81111L2.62155 4.17322L4.5289 1.29665Z' fill='%230095FF'/></svg>");
 }

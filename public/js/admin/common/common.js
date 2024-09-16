@@ -1,3 +1,4 @@
+// toggle modal
 export const toggleModal = (modalId, action) => {
   const modal = document.getElementById(modalId);
 

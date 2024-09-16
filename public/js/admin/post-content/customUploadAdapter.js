@@ -1,3 +1,4 @@
+//custom uploadAdapter
 class CustomUploadAdapter {
   constructor(loader) {
     this.loader = loader;
@@ -25,11 +26,11 @@ class CustomUploadAdapter {
                 let currentData = editorElement.dataset.new_image
                   ? JSON.parse(editorElement.dataset.new_image)
                   : [];
-                currentData.push(data.url);
+                currentData.push(data.data);
                 editorElement.dataset.new_image = JSON.stringify(currentData);
               }
               resolve({
-                default: data.url,
+                default: data.data,
               });
             })
             .catch((error) => {
@@ -50,7 +51,7 @@ export function CustomUploadAdapterPlugin(editor) {
     const currentImageElement = document.getElementById('current-image');
     if (editorElement && currentImageElement) {
       editor.model.document.differ.getChanges().forEach(async (change) => {
-        if (change.type === 'remove' && change.name === 'imageBlock') {
+        if (change.type === 'remove' && (change.name === 'imageBlock' || change.name === 'imageInline')) {
           const attributes = change.attributes;
           if (attributes) {
             const image_url = attributes.get('src');
@@ -62,7 +63,6 @@ export function CustomUploadAdapterPlugin(editor) {
               newUrlImage = newUrlImage.filter((url) => url !== image_url);
               editorElement.dataset.new_image = JSON.stringify(newUrlImage);
             }
-
             let deleteUrlImage = editorElement.dataset.image_deletes
               ? JSON.parse(editorElement.dataset.image_deletes)
               : [];
@@ -74,7 +74,7 @@ export function CustomUploadAdapterPlugin(editor) {
           }
         }
 
-        if (change.type === 'insert' && change.name === 'imageBlock') {
+        if (change.type === 'insert' && (change.name === 'imageBlock' || change.name === 'imageInline')) {
           const attributes = change.attributes;
           if (attributes && attributes.get('src')) {
             const image_url = attributes.get('src');

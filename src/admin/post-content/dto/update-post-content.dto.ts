@@ -1,4 +1,4 @@
-import { IsArray, IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsOptional, IsString } from 'class-validator';
 
 export class updatePostContentDTO {
   @IsString()
@@ -16,6 +16,10 @@ export class updatePostContentDTO {
   @IsString()
   @IsOptional()
   subtitle: string
+
+  @IsBoolean()
+  @IsOptional()
+  status: boolean
 
   @IsString()
   @IsOptional()

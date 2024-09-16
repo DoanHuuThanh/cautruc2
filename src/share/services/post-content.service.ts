@@ -1,8 +1,6 @@
 import {
   Injectable,
-  BadRequestException,
   Inject,
-  NotFoundException,
 } from '@nestjs/common';
 import * as fs from 'fs/promises';
 import * as path from 'path';
@@ -19,6 +17,7 @@ import { PostContentDTO } from 'src/admin/post-content/dto';
 import { v4 as uuidv4 } from 'uuid';
 import { AdminBaseService } from '../base/admin-base.service';
 import { ConfigService } from '@nestjs/config';
+import { ResponseResult } from '../models/response-result';
 
 @Injectable()
 export class PostContentService extends AdminBaseService{
@@ -37,185 +36,199 @@ export class PostContentService extends AdminBaseService{
   }
 
   private async ensureUploadsDirExists() {
-    try {
-      await fs.access(this.uploadPath);
-    } catch {
-      await fs.mkdir(this.uploadPath, { recursive: true });
-    }
+    await fs.access(this.uploadPath).catch(() =>
+      fs.mkdir(this.uploadPath, { recursive: true })
+    );
   }
-
+  
+  //update post content
   async updatePostContent(
     postId: number,
     updatePostContentDTO: updatePostContentDTO,
     file: Express.Multer.File,
   ) {
-    try {
-      const postEntity = await this.postContentRepository.findOne({
-        where: { id: postId },
+    const result = new ResponseResult()
+    const postEntity = await this.postContentRepository.findOne({
+      where: { id: postId },
+    });   
+    if (!postEntity) {
+      result.data =null
+      result.statusCode= 400
+      return result;
+    }
+
+    if (file) {      
+      if (postEntity.url) {
+        const filepath = path.join(this.uploadPath, postEntity.url);
+        fs.unlink(filepath);
+      }
+      const filename = `${uuidv4()}-${file.originalname}`;
+      const filepath = path.join(this.uploadPath, filename);
+      await fs.writeFile(filepath, file.buffer);
+      postEntity.url = filename;
+    } else {
+      const category = await this.postCategoryRepository.findOne({
+        where: { id: Number(updatePostContentDTO.category_id) },
       });
 
-      if (!postEntity) {
-        return { status: 404, message: 'Post not found' };
+      if (!category) {
+        result.data =null
+        result.statusCode= 400
+        return result;
       }
 
-      if (file) {
-        if (postEntity.url) {
-          const filepath = path.join(this.uploadPath, postEntity.url);
-          fs.unlink(filepath);
-        }
-        const filename = `${uuidv4()}-${file.originalname}`;
-        const filepath = path.join(this.uploadPath, filename);
-        await fs.writeFile(filepath, file.buffer);
-        postEntity.url = filename;
-      } else {
-        const category = await this.postCategoryRepository.findOne({
-          where: { id: Number(updatePostContentDTO.category_id) },
+      postEntity.content = updatePostContentDTO.content;
+      postEntity.title = updatePostContentDTO.title;
+      postEntity.subtitle = updatePostContentDTO.subtitle
+      postEntity.category = category;
+      let new_image = JSON.parse(updatePostContentDTO.new_image);
+      new_image = new_image.map(image => {
+        return image.replace(new RegExp(`^${this.fileLink}/`), '');
+      });
+      if (updatePostContentDTO.new_image && new_image?.length > 0) {
+        const postImages = await this.postImageRepository.findBy({
+          url: In(new_image),
         });
-
-        if (!category) {
-          return { status: 404, message: 'Category not found' };
+        if (!postImages || postImages.length !== new_image.length) {
+          result.data =null
+          result.statusCode= 400
+          return result;
         }
 
-        postEntity.content = updatePostContentDTO.content;
-        postEntity.title = updatePostContentDTO.title;
-        postEntity.subtitle = updatePostContentDTO.subtitle
-        postEntity.category = category;
-        const new_image = JSON.parse(updatePostContentDTO.new_image)?.map(ni => ni.replace(`${this.fileLink}/`, ''));
-        if (updatePostContentDTO.new_image && new_image?.length > 0) {
-          const postImages = await this.postImageRepository.findBy({
-            url: In(new_image),
-          });
-          if (!postImages || postImages.length !== new_image.length) {
-            return { status: 404, message: 'One or more images not found' };
-          }
-
-          postEntity.images = postImages;
-        }
+        postEntity.images = postImages;
       }
+    }
 
-      const updatedPostContent =
-        await this.postContentRepository.save(postEntity);
+    const updatedPostContent = await this.postContentRepository.save(postEntity);
 
-      if (updatedPostContent) {
-        return {
-          status: 200,
-          postContent: updatedPostContent,
-        };
-      } else {
-        return {
-          status: 404,
-        };
-      }
-    } catch (error) {
-      return {
-        status: 500,
-        message: 'An error occurred while updating post content',
-        error: error.message,
-      };
+    if (updatedPostContent) {
+      result.data =updatedPostContent
+      result.statusCode= 200
+      return result;
+    } else {
+      result.data =null
+      result.statusCode= 400
+      return result;
     }
   }
 
+  //create post content
   async createPostContent() {
-    try {
-      const postContentEntity = new PostContent();
-      const newPostContent =
-        await this.postContentRepository.save(postContentEntity);
-      if (newPostContent) {
-        return newPostContent;
-      } else return { status: 404 };
-    } catch (error) {
-      console.error('Error creating PostContent:', error);
-      throw error;
-    }
+    const postContentEntity = new PostContent();
+    const newPostContent = await this.postContentRepository.save(postContentEntity);
+    return newPostContent? newPostContent : null
+    
   }
-
+  
+  //cerate category post content
   async createPostCategory(insertPostCategoryDTO: insertPostCategoryDTO) {
-    try {
-      const postCategoryEntity = new PostCategory();
-      postCategoryEntity.name = insertPostCategoryDTO.name;
-      postCategoryEntity.description = insertPostCategoryDTO.description;
-      const newPostCategory =
-        await this.postCategoryRepository.save(postCategoryEntity);
-      if (newPostCategory) {
-        return {
-          status: 200,
-          msg: 'Bạn đã tạo thể loại bài viết thành công',
-          category: newPostCategory,
-        };
-      } else
-        return {
-          status: 404,
-          msg: 'Bạn đã tạo thể loại bài viết thất bại',
-        };
-    } catch (error) {
-      console.error('Error creating PostCategory:', error);
-      throw error;
+    const result = new ResponseResult()
+    const postCategoryEntity = new PostCategory();
+    postCategoryEntity.name = insertPostCategoryDTO.name;
+    postCategoryEntity.description = insertPostCategoryDTO.description;
+    const newPostCategory = await this.postCategoryRepository.save(postCategoryEntity);
+    
+    if (newPostCategory) {
+      result.data =newPostCategory
+      result.statusCode= 200
+      result.message = "Tạo thể loại bài viết thành công"
+      return result;
+    } else {
+      result.data =null
+      result.statusCode= 400
+      return result;
     }
   }
-
+ 
+  //get category
   async getCategories(): Promise<PostCategory[]> {
-    try {
-      const categories = await this.postCategoryRepository.find();
-      return categories;
-    } catch (error) {
-      throw new Error('Error fetching categories');
-    }
+    return await this.postCategoryRepository.find();
   }
 
-  async getPostContents(): Promise<PostContentDTO[]> {
-    try {
-      const rawPostContents = await this.postContentRepository.find({
+  //get post contents
+  async getPostContents(page: number): Promise<{ 
+    postContents: PostContentDTO[]; 
+    totalPages: number;
+    limit: number;
+  }> {
+    const limit = 10;
+    const skip = (page - 1) * limit;
+  
+    const [rawPostContents, totalCount] = await Promise.all([
+      this.postContentRepository.find({
         where: {
           title: Not(IsNull()),
         },
         relations: ['category', 'images'],
-      });
+        take: limit,
+        skip: skip,
+        order: { createdAt: 'DESC' },
+      }),
+      this.postContentRepository.count({
+        where: {
+          title: Not(IsNull()),
+        },
+      }),
+    ]);
 
-      const postContents = rawPostContents.map((rawPost) =>
-        plainToClass(PostContentDTO, rawPost, {
-          excludeExtraneousValues: true,
-        }),
-      );
-
-      return postContents;
-    } catch (error) {
-      console.error('Error fetching postContents:', error);
-      throw new Error('Error fetching postContents');
-    }
-  }
-
-  async getPostContentById(postId: number): Promise<PostContentDTO | null> {
-    try {
-      const rawPostContent = await this.postContentRepository.findOne({
-        where: { id: postId },
-        relations: ['category', 'images'],
-      });
-      const postContent = plainToClass(PostContentDTO, rawPostContent, {
+    const postContents = rawPostContents.map((rawPost) =>
+      plainToClass(PostContentDTO, rawPost, {
         excludeExtraneousValues: true,
-      });
+      }),
+    );
 
-      return postContent;
-    } catch (error) {
-      console.error('Error fetching postContents:', error);
-      throw new Error('Error fetching postContents');
-    }
+    const totalPages = Math.ceil(totalCount / limit);
+
+    return {
+      postContents,
+      totalPages,
+      limit,
+    };
   }
 
-  async deletePostContentById(postId: number):  Promise<{ status: number; message: string }> {
-    try {
-      const postContent = await this.postContentRepository.findOne({
-        where: { id: postId },
-      });
+  //get post content by id
+  async getPostContentById(postId: number): Promise<PostContentDTO | null> {
+    const rawPostContent = await this.postContentRepository.findOne({
+      where: { id: postId },
+      relations: ['category', 'images'],
+    });
+    return plainToClass(PostContentDTO, rawPostContent, {
+      excludeExtraneousValues: true,
+    });
+  }
 
-      if (!postContent) {
-        throw new NotFoundException(`Post content with ID ${postId} not found`);
-      }
-
-      await this.postContentRepository.remove(postContent);
-      return { status: 200, message: 'Xóa thành công bài viết' };
-    } catch (error) {
-      console.error('Error deleting postContent:', error);
-      throw new Error('Failed to delete post content');
+  //delete post content
+  async deletePostContentById(postId: number): Promise<any> {
+    const postContent = await this.postContentRepository.findOne({
+      where: { id: postId },
+    });
+    const result = new ResponseResult()
+    if (!postContent) {
+      result.statusCode= 400
+      return result;
     }
+
+    await this.postContentRepository.remove(postContent);
+    result.statusCode= 200
+    return result;
+  }
+
+  //update status post content
+  async updateStatus(postId: number, body: updatePostContentDTO): Promise<any> {
+    const postContent = await this.postContentRepository.findOne({
+      where: { id: postId },
+    });
+    const result = new ResponseResult()
+    if (!postContent) {
+      result.statusCode= 400
+      return result
+    }
+    
+    postContent.status = body.status;
+    await this.postContentRepository.save(postContent);
+
+    result.statusCode= 200
+    result.message = "Cập nhập trạng thái thành công"
+    return result
   }
 }

@@ -15,6 +15,9 @@ export class PostContentDTO {
   subtitle: string;
 
   @Expose()
+  status: boolean
+
+  @Expose()
   @Transform(({ obj }) => (obj.category ? obj.category.id : null))
   category_id: number;
 

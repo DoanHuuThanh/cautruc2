@@ -1,4 +1,4 @@
-import { Injectable, BadRequestException, Inject } from '@nestjs/common';
+import { Injectable, Inject, BadRequestException } from '@nestjs/common';
 import { In, Repository } from 'typeorm';
 import * as fs from 'fs/promises';
 import * as path from 'path';
@@ -19,65 +19,43 @@ export class BaseUploadService<T extends { id: number; url: string; alt?: string
   }
 
   private async ensureUploadsDirExists() {
-    try {
-      await fs.access(this.uploadPath);
-    } catch {
-      await fs.mkdir(this.uploadPath, { recursive: true });
-    }
+    await fs.access(this.uploadPath).catch(() =>
+      fs.mkdir(this.uploadPath, { recursive: true })
+    );
   }
 
-  async uploadFile(file: Express.Multer.File): Promise<{ id: number; url: string }> {
+  //upload file
+  async uploadFile(file: Express.Multer.File): Promise<any> {
     if (!file) {
-      throw new BadRequestException('No file provided');
+      throw new Error('No file provided');
     }
 
     const filename = `${uuidv4()}-${file.originalname}`;
     const filepath = path.join(this.uploadPath, filename);
 
-    try {
-      await fs.writeFile(filepath, file.buffer);
+    await fs.writeFile(filepath, file.buffer);
 
-      const fileEntity = this.fileRepository.create({
-        url: filename,
-        alt: file.originalname.replace(/\.[^/.]+$/, ""),
-      } as T);
+    const fileEntity = this.fileRepository.create({
+      url: filename,
+      alt: file.originalname.replace(/\.[^/.]+$/, ""),
+    } as T);
 
-      const savedFile = await this.fileRepository.save(fileEntity);
+    const savedFile = await this.fileRepository.save(fileEntity);
 
-      return {
-        id: savedFile.id,
-        url: `${this.fileLink}/${savedFile.url}`,
-      };
+      return  `${this.fileLink}/${savedFile.url}`
     } catch (error) {
-      throw new BadRequestException('Failed to upload file');
+      throw new BadRequestException('Failed to upload file', error);
     }
-  }
+    
 
-  async deleteFileByUrl(url: string): Promise<void> {
-    // loại bỏ đường dẫn đến image
-    url = url.replace(`${this.fileLink}/`, '');
-    const file = await this.fileRepository.findOne({ where: { url: url } as any });
-    if (!file) {
-      throw new BadRequestException('File not found');
-    }
-
-    const filepath = path.join(this.uploadPath, file.url);
-
-    try {
-      await fs.unlink(filepath);
-      await this.fileRepository.remove(file);
-    } catch (error) {
-      throw new BadRequestException('Failed to delete file');
-    }
-  }
 
   async deleteManyFileByUrl(urls: any[]): Promise<void> {
     if (urls.length === 0) {
-      throw new BadRequestException('No URLs provided');
+      throw new Error('No URLs provided');
     }
     // loại bỏ link folder
     urls = urls.map(url => {
-      url = url.replace(`${this.fileLink}/`, '');
+      return url.replace(new RegExp(`^${this.fileLink}/`), '');
     });
 
     const files = await this.fileRepository.find({
@@ -85,24 +63,15 @@ export class BaseUploadService<T extends { id: number; url: string; alt?: string
     });
   
     if (files.length === 0) {
-      throw new BadRequestException('No files found');
+      throw new Error('No files found');
     }
   
     const deletePromises = files.map(async (file) => {
       const filepath = path.join(this.uploadPath, file.url);
-      try {
-        await fs.unlink(filepath);
-        await this.fileRepository.remove(file);
-      } catch (error) {
-        console.error(`Failed to delete file ${file.url}:`, error);
-        throw error;
-      }
+      await fs.unlink(filepath);
+      await this.fileRepository.remove(file);
     });
   
-    try {
-      await Promise.all(deletePromises);
-    } catch (error) {
-      throw new BadRequestException('Failed to delete one or more files');
-    }
+    await Promise.all(deletePromises);
   }
 }

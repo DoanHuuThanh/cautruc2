@@ -1,3 +1,4 @@
+//create category post content
 const createPostCategory = async () => {
   const nameElement = document.getElementById('name-post-category');
   const messageElement = document.getElementById('post-category-message');
@@ -41,14 +42,14 @@ const createPostCategory = async () => {
 
     const data = await response.json();
 
-    if (response.ok && data.status === 200) {
+    if (response.ok && data.statusCode === 200) {
       if (messageElement) {       
         messageElement.classList.add('text-green-500');
-        messageElement.innerHTML = data.msg;
+        messageElement.innerHTML = data.message;
       }
       const newOption = document.createElement('option');
-      newOption.value = data.category.id;
-      newOption.text = data.category.name;
+      newOption.value = data.data.id;
+      newOption.text = data.data.name;
       if (selectCategoryElement) {
         selectCategoryElement.appendChild(newOption);
       }
@@ -57,7 +58,7 @@ const createPostCategory = async () => {
     } else {
       if (messageElement) {
         messageElement.classList.add('text-red-500');
-        messageElement.innerHTML = data.msg;
+        messageElement.innerHTML = data.message;
       }
     }
   } catch (error) {

@@ -7,8 +7,10 @@
             </a>
         </div>
         {{> admin-table headers= headers data= postContents keys = keys src= "/admin/post-content"
-        button_delete="delete-post-content" }}
+        button_delete="delete-post-content"  id_status="post_content_status"}}
     </div>
+
+        {{{renderPagination currentPage totalPages limit}}}
 
     <div class="hidden fixed inset-0 bg-gray-300 bg-opacity-30 z-50 flex justify-center items-center"
         id="modal-delete-post-content">

@@ -5,9 +5,9 @@ const deletePostContentModal = (e) => {
     toggleModal('modal-delete-post-content', 'open');
     const postDeleteElement = e.target;
     postId = postDeleteElement.dataset.id;
-    console.log('Post ID:', postId); 
 };
 
+//delete post content
 const deletePostContent = async () => {
     const loadingElement = document.getElementById('loading');
     if (!loadingElement) {
@@ -19,7 +19,7 @@ const deletePostContent = async () => {
       method: 'DELETE',
     });
     const data = await response.json();
-    if (data.status === 200) {
+    if (data.statusCode === 200) {
       window.location.reload()
     } else {
       console.error('Server Error:', data.message || 'Unknown error');
