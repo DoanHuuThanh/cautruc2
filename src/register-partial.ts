@@ -3,14 +3,11 @@ import * as hbs from 'hbs';
 import * as fs from 'node:fs';
 
 export async function registerPartial() {
-  console.log('registerPartial: Begin regis partial');
-
   // Danh sách folder đăng ký partial
   const partialFolders = [
     join(__dirname, '..', 'views/admin/components'),
     join(__dirname, '..', 'views/admin/layouts'),
-    join(__dirname, '..', 'views/admin/product'),
-    join(__dirname, '..', 'views/admin/project'),
+    join(__dirname, '..', 'views/admin/post-content'),
     join(__dirname, '..', 'views/customer/components'),
     join(__dirname, '..', 'views/customer/layouts'),
     join(__dirname, '..', 'views/customer/home'),
@@ -36,6 +33,4 @@ export async function registerPartial() {
       console.log('registerPartial: Error readdir - ', files);
     }
   });
-
-  console.log('registerPartial: Complete regis partial');
 }

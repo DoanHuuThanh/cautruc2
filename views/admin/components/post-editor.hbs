@@ -1,0 +1,85 @@
+<div>
+    <textarea name="editor" id="editor">{{content}}</textarea>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "ckeditor5": "https://cdn.ckeditor.com/ckeditor5/43.1.0/ckeditor5.js",
+                "ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/43.1.0/"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import {
+            ClassicEditor,
+            Essentials,
+            Bold,
+            Italic,
+            Font,
+            Paragraph,
+            Image,
+            ImageInsert,
+            ImageCaption,
+            ImageResize,
+            ImageStyle,
+            ImageToolbar,
+            AutoImage,
+            FileRepository,
+            List,
+            Link,
+            Heading,
+            BlockQuote,
+            Strikethrough,
+            ListProperties,
+            TodoList,
+            Table,
+            TableToolbar,
+            TableColumnResize,
+            TableCaption,
+            Alignment,
+        } from 'ckeditor5';
+
+        import { CustomUploadAdapterPlugin } from '/js/admin/post-content/customUploadAdapter.js'
+
+        ClassicEditor
+            .create(document.querySelector('#editor'), {
+                plugins: [
+                    Essentials, Bold, Italic, Font, Paragraph, Image, ImageInsert, AutoImage, ImageToolbar, FileRepository, ImageCaption, ImageStyle, ImageResize, List, Link, Heading, BlockQuote, Strikethrough, ListProperties, TodoList, Table, TableToolbar, TableColumnResize, TableCaption, Alignment],
+                toolbar: {
+                    items: [
+                        'undo', 'redo', '|',
+                        'bold', 'italic', '|',
+                        'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', '|',
+                        'insertImage', 'link', '|',
+                        'heading', 'blockQuote', 'strikethrough', 'todoList', 'bulletedList', 'numberedList', 'insertTable', 'alignment', '|',
+                    ],
+                },
+                alignment: {
+                    options: ['left', 'right', 'center', 'justify']
+                },
+                table: {
+                    contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'toggleTableCaption']
+                },
+                list: {
+                    properties: {
+                        styles: true,
+                        startIndex: true,
+                        reversed: true
+                    }
+                },
+                image: {
+                    toolbar: ['toggleImageCaption', 'imageTextAlternative'],
+                    insert: {
+                        type: 'auto'
+                    }
+                },
+                extraPlugins: [CustomUploadAdapterPlugin]
+            })
+            .then(editor => {
+                window.editor = editor;
+            })
+            .catch(/* ... */);
+
+    </script>
+</div>

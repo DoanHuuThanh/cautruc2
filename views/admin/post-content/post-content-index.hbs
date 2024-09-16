@@ -1,0 +1,34 @@
+<div>
+    <div>
+        <div class="flex justify-end mb-3">
+            <a href="/admin/post-content/new">{{> admin-button title="+ Tạo bài viết mới"
+                id="new-post-content" class=
+                "hover:bg-cyan-700"}}
+            </a>
+        </div>
+        {{> admin-table headers= headers data= postContents keys = keys src= "/admin/post-content"
+        button_delete="delete-post-content"  id_status="post_content_status"}}
+    </div>
+
+        {{{renderPagination currentPage totalPages limit}}}
+
+    <div class="hidden fixed inset-0 bg-gray-300 bg-opacity-30 z-50 flex justify-center items-center"
+        id="modal-delete-post-content">
+        <div class="bg-white rounded-lg shadow relative w-full max-w-[370px] px-4 h-full md:h-auto">
+            <div class="text-center py-[30px] text-[20px]">
+                Bạn có muốn xóa bài viết này không?
+            </div>
+            <!-- Modal footer -->
+            <div class="items-center w-full p-6 rounded-b flex justify-center">
+                <div class="w-1/2">{{> admin-button title="Hủy" id="cancel-modal-delete-post-content" class=
+                    "!bg-red-500 hover:bg-cyan-700 mr-4 !w-full"}}</div>
+                <div class="w-1/2">{{> admin-button title="Xóa" id="submit-delete-post-content" class=
+                    "!bg-blue-500 hover:bg-cyan-700 ml-4 !w-full"}}</div>
+            </div>
+        </div>
+    </div>
+    <div id="loading" class="hidden">
+            {{> admin-loading}}
+    </div>
+    <script type="module" src="/js/admin/post-content/post-content-delete.js"></script>
+</div>

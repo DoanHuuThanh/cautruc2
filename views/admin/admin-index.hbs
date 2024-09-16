@@ -1,13 +1,29 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>App</title>
-    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.1.0/ckeditor5.css" />
-  </head>
-  <body>
-    {{> admin-footer }}
-    {{> (body) }}
-    {{> admin-header }}
-  </body>
+<html lang="vi">
+
+<head>
+  <meta charset="utf-8" />
+  <title>App</title>
+  <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.1.0/ckeditor5.css" />
+  <link rel="stylesheet" href="/css/admin/main-output.css" />
+</head>
+
+<body class="min-h-screen">
+
+  <div class="w-full">
+    <div class="w-[243px]">
+      {{> admin-sidebar}}
+    </div>
+    <div class="pr-6 bg-gray-100 min-h-screen">
+      <div class=" pl-[255px]">
+        {{> admin-header}}
+      </div>
+      <div class=" pl-[260px] pt-[90px] bg-gray-100" style="min-height: calc(100vh-90px);">
+        {{> (body) }}
+      </div>
+
+    </div>
+  </div>
+</body>
+
 </html>
