@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { CustomerHomeModule } from './customer/home/customer-home.module';
 import { AdminModule } from './admin/admin.module';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './share/providers/database.module';
+import { CustomerModule } from './customer/customer.module';
 
 @Module({
   imports: [
@@ -11,7 +11,7 @@ import { DatabaseModule } from './share/providers/database.module';
       envFilePath: ['src/config/.env', 'src/config/.share.env'],
       isGlobal: true,
     }),
-    CustomerHomeModule,
+    CustomerModule,
     AdminModule,
     DatabaseModule,
   ],

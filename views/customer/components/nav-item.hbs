@@ -15,19 +15,19 @@
         {{/if}}
     </li>
 {{else}}
-    <li class="h-9 computer-nav-item relative">
-        <div class="flex justify-between items-center text-link">
-            <a class="px-3 py-2 font-bold text-3.5 flex-1" href="{{href}}">
+    <li class="computer-nav-item relative py-2 px-3">
+        <div class="flex justify-between items-center text-link gap-x-2">
+            <a class="font-bold text-3 flex-1" href="{{href}}">
                 {{title}}
             </a>
             {{#if subNav}}
-            <div class="flex justify-center items-center h-9 w-9">
-                <i class="fa-solid fa-chevron-right text-6xl"></i>
+            <div class="flex justify-center items-center">
+                <i class="fa-solid fa-chevron-right text-3"></i>
             </div>
             {{/if}}
         </div>
         {{#if subNav}}
-        <ul class="w-[220px] bg-white left-full top-0 flex-col absolute hidden computer-nav-active shadow-main z-999">
+        <ul class="min-w-[200px] bg-white left-full top-0 flex-col py-4 absolute hidden computer-nav-active shadow-main z-999">
             {{#each subNav}}
             {{> nav-item href=this.href title=this.title subNav=this.subNav}}
             {{/each}}

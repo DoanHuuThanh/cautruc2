@@ -12,6 +12,8 @@ module.exports = {
       "b-separate": "#d0d0d0",
       "white": "#ffffff",
       "gray-light": "#fff9",
+      "gray-light-3": "rgba(255,255,255,0.2)",
+      "overlay-black": "rgba(0, 0, 0, 0.85)",
     },
     fontFamily: {
       base: ["Montserrat"], // font chính
