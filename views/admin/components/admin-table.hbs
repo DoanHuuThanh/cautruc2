@@ -18,9 +18,9 @@
     <tbody class="bg-white divide-y divide-gray-200">
         {{#each data}}
         <tr>
-                       <td class="p-4 text-center w-[50px]">
+            <td class="p-4 text-center w-[50px]">
                 {{add @index 1}}
-                </td>
+            </td>
             {{#each ../keys}}
             <td class="p-4 text-center text-base font-medium text-gray-900 max-w-[100px] truncate">
                 {{#if (eq @this 'url')}}
@@ -40,35 +40,30 @@
             <td class="p-4 whitespace-nowrap space-x-2 w-[200px]">
                 <div class="toggle flex justify-center w-full">
                     <input id="{{../id_status}}_{{this.id}}" {{#if this.status}}checked{{/if}}
-                        class='toggle-checkbox absolute w-[28px] h-[16px] opacity-0 z-10 cursor-pointer' type='checkbox' data-id={{this.id}}
-                        name="check" />
+                        class='toggle-checkbox absolute w-[28px] h-[16px] opacity-0 z-10 cursor-pointer' type='checkbox'
+                        data-id={{this.id}} name="check" />
                     <label for="{{../id_status}}_{{this.id}}"
                         class='toggle-label bg-[#EDF2F6] block w-[28px] h-[16px] rounded-full transition-color duration-150 ease-out relative'></label>
                 </div>
             </td>
             {{/if}}
             <td class="p-4 whitespace-nowrap space-x-2 text-end w-[100px]">
+                {{#if ../src}}
                 <a href="{{../src}}/{{this.id}}" data-modal-toggle="product-modal"
                     class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-2 py-2 text-center">
-                    <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z">
-                        </path>
-                        <path fill-rule="evenodd"
-                            d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                    {{src}}
+                    Sửa
                 </a>
-                <button type="button" id={{../button_delete}} data-modal-toggle="delete-product-modal"
+                {{else}}
+                <button id="" data-modal-toggle="product-modal" data-id={{this.id}}
+                    class="open-modal-edit text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-2 py-2 text-center">
+                  Sửa
+                </button>
+                {{/if}}
+
+                <button type="button" id="" data-modal-toggle="delete-product-modal"
                     data-id={{this.id}}
-                    class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-2 py-2 text-center">
-                    <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                            clip-rule="evenodd"></path>
-                    </svg>
+                    class="{{../button_delete}} text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-2 py-2 text-center">
+                    Xóa
                 </button>
             </td>
         </tr>

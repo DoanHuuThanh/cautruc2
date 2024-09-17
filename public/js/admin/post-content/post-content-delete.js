@@ -42,7 +42,7 @@ const deletePostContent = async () => {
   }
 } 
 
-const buttonDeleteElement = document.getElementById('delete-post-content');
+const buttonDeleteElements = document.querySelectorAll('.delete-post-content');
 
 const closeModalElement = document.getElementById(
   'cancel-modal-delete-post-content',
@@ -51,8 +51,10 @@ const buttonSubmitDeleteElement = document.getElementById(
     'submit-delete-post-content',
   );
 
-if (buttonDeleteElement) {
-  buttonDeleteElement.addEventListener('click', deletePostContentModal);
+if (buttonDeleteElements.length > 0) {
+  buttonDeleteElements.forEach(button => {
+    button.addEventListener('click', deletePostContentModal);
+  });
 }
 
 if (buttonSubmitDeleteElement) {
