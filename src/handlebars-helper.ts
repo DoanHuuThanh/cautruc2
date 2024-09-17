@@ -46,13 +46,13 @@ hbs.registerHelper('paginationRange', function (totalPages: number, currentPage:
 
 hbs.registerHelper('renderPagination', function(currentPage: number, totalPages: number) {
   const pages = hbs.handlebars.helpers['paginationRange'](totalPages, currentPage, 5);
-  let result = '<nav aria-label="Pagination" class="w-full flex items-center justify-between p-4 overflow-hidden">';
+  let result = '<nav aria-label="Pagination" class="w-full flex items-center justify-center p-4 overflow-hidden">';
 
   if (currentPage > 1) {
     result += `
       <a href="?page=${Number(currentPage) - 1}"
-         class="inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700 bg-blue-50 hover:bg-blue-100 transition-colors duration-300 rounded-l-md">
-         <svg width='12' height='9' viewBox='0 0 12 9' fill='none' xmlns='http://www.w3.org/2000/svg'>
+         class="inline-flex mr-[20px] w-1/4 items-center px-4 py-2 text-sm font-semibold text-gray-700 bg-blue-50 hover:bg-blue-100 transition-colors duration-300 rounded-l-md">
+         <svg width='24' height='24' viewBox='0 0 12 9' fill='none' xmlns='http://www.w3.org/2000/svg'>
          <path
            fillRule='evenodd'
            clipRule='evenodd'
@@ -64,8 +64,8 @@ hbs.registerHelper('renderPagination', function(currentPage: number, totalPages:
     `;
   } else {
     result += `
-      <span class="inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-400 bg-gray-100 rounded-l-md cursor-default">
-      <svg width='12' height='9' viewBox='0 0 12 9' fill='none' xmlns='http://www.w3.org/2000/svg'>
+      <span class="inline-flex mr-[20px] w-1/4 items-center px-4 py-2 text-sm font-semibold text-gray-400 bg-gray-100 rounded-l-md cursor-default">
+      <svg width='24' height='24' viewBox='0 0 12 9' fill='none' xmlns='http://www.w3.org/2000/svg'>
       <path
         fillRule='evenodd'
         clipRule='evenodd'
@@ -103,8 +103,8 @@ hbs.registerHelper('renderPagination', function(currentPage: number, totalPages:
   if (currentPage < totalPages) {
     result += `
       <a href="?page=${Number(currentPage) + 1}"
-         class="inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700 bg-blue-50 hover:bg-blue-100 transition-colors duration-300 rounded-r-md">
-        <svg width='12' height='9' viewBox='0 0 12 9' fill='none' xmlns='http://www.w3.org/2000/svg'>
+         class="inline-flex mr-[20px] w-1/4 items-center justify-end px-4 py-2 text-sm font-semibold text-gray-700 bg-blue-50 hover:bg-blue-100 transition-colors duration-300 rounded-r-md">
+        <svg width='24' height='24' viewBox='0 0 12 9' fill='none' xmlns='http://www.w3.org/2000/svg'>
          <path
            fillRule='evenodd'
            clipRule='evenodd'
@@ -116,8 +116,8 @@ hbs.registerHelper('renderPagination', function(currentPage: number, totalPages:
     `;
   } else {
     result += `
-      <span class="inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-400 bg-gray-100 rounded-r-md cursor-default">
-      <svg width='12' height='9' viewBox='0 0 12 9' fill='none' xmlns='http://www.w3.org/2000/svg'>
+      <span class="inline-flex mr-[20px] w-1/4 justify-end items-center px-4 py-2 text-sm font-semibold text-gray-400 bg-gray-100 rounded-r-md cursor-default">
+      <svg width='24' height='24' viewBox='0 0 12 9' fill='none' xmlns='http://www.w3.org/2000/svg'>
       <path
         fillRule='evenodd'
         clipRule='evenodd'

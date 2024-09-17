@@ -57,7 +57,7 @@
         <div class="hidden fixed inset-0 bg-gray-300 bg-opacity-30 z-50 flex justify-center items-center"
             id="modal-new-post-category">
             <!-- Modal content -->
-            <div class="bg-white rounded-lg shadow relative w-full max-w-2xl px-4 h-full md:h-auto">
+            <div class="bg-white rounded-lg shadow relative w-full max-w-2xl px-4 h-[40%] md:h-auto">
                 <!-- Modal header -->
                 <div class="flex items-start justify-between p-5 border-b rounded-t">
                     <div>
@@ -100,11 +100,24 @@
             </div>
         </div>
 
+        <div class="hidden fixed inset-0 bg-gray-300 bg-opacity-30 z-50 flex justify-center items-center"
+            id="modal-status">
+            <div class="bg-white rounded-lg shadow relative w-full max-w-[370px] px-4 h-[20%] md:h-auto">
+                <div id="status" class="text-center py-[30px] text-[20px]">
+                </div>
+                <!-- Modal footer -->
+                <div class="items-center w-full p-6 rounded-b flex justify-center">
+                    <div class="w-1/2">{{> admin-button title="Thoát" id="exit-modal-status" class=
+                        "!bg-green-500 hover:bg-cyan-700 !w-full"}}</div>
+                </div>
+            </div>
+        </div>
+
         <div id="loading" class="hidden">
             {{> admin-loading}}
         </div>
         <script type="module" src="/js/admin/post-content/post-content-update.js"></script>
-        <script src="/js/admin/post-content/post-category.js"></script>
+        <script type="module" src="/js/admin/post-content/post-category.js"></script>
     </div>
 </div>
 

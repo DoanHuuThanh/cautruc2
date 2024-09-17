@@ -2,19 +2,6 @@
 module.exports = {
   content: ['./views/**/*.{html,hbs}', './public/**/*.{css,js}'],
   theme: {
-    colors: {
-      gray: '#f5f5f5',
-      transparent: 'transparent',
-      'main-blue': '#004aad',
-      'main-yellow': '#ffbd59',
-      black: '#232323',
-      "black-light": '#444444',
-      "b-separate": "#d0d0d0",
-      "white": "#ffffff",
-      "gray-light": "#fff9",
-      "gray-light-3": "rgba(255,255,255,0.2)",
-      "overlay-black": "rgba(0, 0, 0, 0.85)",
-    },
     fontFamily: {
       base: ["Montserrat"], // font chính
       lato: ["Lato"] // font cho những thông tin thêm
