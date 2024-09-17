@@ -1,5 +1,7 @@
 import { Exclude, Expose, Transform } from 'class-transformer';
+import { ConfigService } from '@nestjs/config';
 
+const configService = new ConfigService()
 @Exclude()
 export class PostContentDTO {
   @Expose()
@@ -32,8 +34,10 @@ export class PostContentDTO {
   images: string[];
 
   @Expose()
-  @Transform(({ obj }) =>
-    obj.url ? `http://localhost:3000/uploads/${obj.url}` : null,
-  )
+  @Transform(({ obj }) => {
+    if (!obj.url) return null;
+    const baseUrl = configService.get('FILE_URL');
+    return `${baseUrl}/${obj.url}`;
+  })
   url: string;
 }

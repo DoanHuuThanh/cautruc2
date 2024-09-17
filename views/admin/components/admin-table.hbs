@@ -6,9 +6,11 @@
                 {{this}}
             </th>
             {{/each}}
+            {{#if isStatus}}
             <th scope="col" class="p-4">
                 Trạng thái
             </th>
+            {{/if}}
             <th scope="col" class="p-4">
             </th>
         </tr>
@@ -16,6 +18,9 @@
     <tbody class="bg-white divide-y divide-gray-200">
         {{#each data}}
         <tr>
+                       <td class="p-4 text-center w-[50px]">
+                {{add @index 1}}
+                </td>
             {{#each ../keys}}
             <td class="p-4 text-center text-base font-medium text-gray-900 max-w-[100px] truncate">
                 {{#if (eq @this 'url')}}
@@ -31,6 +36,7 @@
                 {{/if}}
             </td>
             {{/each}}
+            {{#if ../isStatus}}
             <td class="p-4 whitespace-nowrap space-x-2 w-[200px]">
                 <div class="toggle flex justify-center w-full">
                     <input id="{{../id_status}}_{{this.id}}" {{#if this.status}}checked{{/if}}
@@ -40,6 +46,7 @@
                         class='toggle-label bg-[#EDF2F6] block w-[28px] h-[16px] rounded-full transition-color duration-150 ease-out relative'></label>
                 </div>
             </td>
+            {{/if}}
             <td class="p-4 whitespace-nowrap space-x-2 text-end w-[100px]">
                 <a href="{{../src}}/{{this.id}}" data-modal-toggle="product-modal"
                     class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-2 py-2 text-center">

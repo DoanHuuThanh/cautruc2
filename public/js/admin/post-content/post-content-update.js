@@ -37,7 +37,6 @@ const updatePostContent = async () => {
     const new_image = editorElement.dataset.new_image
       ? JSON.parse(editorElement.dataset.new_image)
       : [];
-
     const delete_image = editorElement.dataset.image_deletes
       ? JSON.parse(editorElement.dataset.image_deletes)
       : [];

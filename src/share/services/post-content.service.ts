@@ -18,6 +18,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { AdminBaseService } from '../base/admin-base.service';
 import { ConfigService } from '@nestjs/config';
 import { ResponseResult } from '../models/response-result';
+import { PostCategoryDTO } from 'src/admin/post-content/dto';
 
 @Injectable()
 export class PostContentService extends AdminBaseService{
@@ -231,4 +232,38 @@ export class PostContentService extends AdminBaseService{
     result.message = "Cập nhập trạng thái thành công"
     return result
   }
+
+  //get categories
+  async getPostCategories(page: number): Promise<{ 
+    postCategories: PostCategoryDTO[]; 
+    totalPages: number;
+    limit: number;
+  }> {
+    const limit = 10;
+    const skip = (page - 1) * limit;
+  
+    const [rawPostCategories, totalCount] = await Promise.all([
+      this.postCategoryRepository.find({
+        take: limit,
+        skip: skip,
+        order: { createdAt: 'DESC' },
+      }),
+      this.postCategoryRepository.count(),
+    ]);
+
+    const postCategories = rawPostCategories.map((rawPost) =>
+      plainToClass(PostCategoryDTO, rawPost, {
+        excludeExtraneousValues: true,
+      }),
+    );
+
+    const totalPages = Math.ceil(totalCount / limit);
+
+    return {
+      postCategories,
+      totalPages,
+      limit,
+    };
+  }
+
 }

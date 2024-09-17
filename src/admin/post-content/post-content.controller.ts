@@ -14,7 +14,7 @@ export class PostContentController {
   async getPostContent(@Query('page') page: number = 1) {
     try {
       const data = await this.postContentService.getPostContents(page);
-      const headers = ['Tiêu đề', 'Thể loại', 'Ảnh đại diện'];
+      const headers = ['STT','Tiêu đề', 'Thể loại', 'Ảnh đại diện'];
       const keys = ['title', 'category_name', 'url'];
       return {
         currentPage: page,
@@ -48,7 +48,7 @@ export class PostContentController {
     }
   }
 
-  @Get(':id')
+  @Get('update/:id')
   @Render('admin/admin-index.hbs')
   async getPostContentById(@Param('id', ParseIntPipe) postId: number) {
     try {
@@ -64,6 +64,29 @@ export class PostContentController {
       throw new HttpException('Internal server error', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
+  @Get('category')
+  @Render('admin/admin-index.hbs')
+  async getPostCategory(@Query('page') page: number = 1) {
+    try {
+      const data =await this.postContentService.getPostCategories(page)
+      const headers = ['STT','Tên thể loại', 'Mô tả'];
+      const keys = ['name', 'description'];
+      return {
+        currentPage: page,
+        totalPages: data.totalPages,
+        limit: data.limit,
+        headers: headers,
+        keys: keys,
+        postCategories: data.postCategories,
+        body: () => 'post-content-category'
+      };
+    } catch (error) {
+      console.error('Error in getPostContentById:', error);
+      throw new HttpException('Internal server error', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
 
   @Post('upload/post-image')
   @UseInterceptors(FileInterceptor('upload'))

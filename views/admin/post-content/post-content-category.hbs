@@ -1,0 +1,12 @@
+    <div>
+        {{#if postCategories.length}}
+        {{> admin-table headers= headers data= postCategories keys= keys src= "/admin/post-content"
+        button_delete="delete-post-category"}}
+        {{{renderPagination currentPage totalPages limit}}}
+        {{else}}
+        <div class="flex items-center justify-center h-[500px]">
+            <p class="text-[30px] font-bold text-gray-500">Không có dữ liệu.</p>
+        </div>
+        {{/if}}
+
+    </div>

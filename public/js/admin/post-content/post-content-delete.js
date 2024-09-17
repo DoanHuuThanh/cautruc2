@@ -2,10 +2,19 @@ import { toggleModal } from '../common/common.js';
 
 let postId
 const deletePostContentModal = (e) => {
-    toggleModal('modal-delete-post-content', 'open');
-    const postDeleteElement = e.target;
+  const postDeleteElement = e.target.closest('button[data-id]');
+  if (postDeleteElement) {
     postId = postDeleteElement.dataset.id;
+    console.log(postId);
+  }
+  else {
+    console.error('Không tìm thấy post ID');
+  }
+
+
+  toggleModal('modal-delete-post-content', 'open');
 };
+
 
 //delete post content
 const deletePostContent = async () => {
@@ -13,6 +22,8 @@ const deletePostContent = async () => {
     if (!loadingElement) {
         return;
     }
+
+    
     try {
     loadingElement.classList.remove('hidden');
     const response = await fetch(`/admin/post-content/${postId}`, {
@@ -32,6 +43,7 @@ const deletePostContent = async () => {
 } 
 
 const buttonDeleteElement = document.getElementById('delete-post-content');
+
 const closeModalElement = document.getElementById(
   'cancel-modal-delete-post-content',
 );
