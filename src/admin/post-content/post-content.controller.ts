@@ -14,7 +14,7 @@ export class PostContentController {
   async getPostContent(@Query('page') page: number = 1) {
     try {
       const data = await this.postContentService.getPostContents(page);
-      const headers = ['Tiêu đề', 'Thể loại', 'Hình ảnh'];
+      const headers = ['Tiêu đề', 'Thể loại', 'Ảnh đại diện'];
       const keys = ['title', 'category_name', 'url'];
       return {
         currentPage: page,
