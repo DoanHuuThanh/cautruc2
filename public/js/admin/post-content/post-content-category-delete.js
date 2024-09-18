@@ -1,22 +1,22 @@
 import { toggleModal } from '../common/common.js';
 
-let postId
-const deletePostContentModal = (e) => {
-  const postDeleteElement = e.target.closest('button[data-id]');
+let categoryId
+const deletePostCategoryModal = (e) => {
+  const postDeleteElement = e.target;
   if (postDeleteElement) {
-    postId = postDeleteElement.dataset.id;
+    categoryId = postDeleteElement.dataset.id;
   }
   else {
     console.error('Không tìm thấy post ID');
   }
 
 
-  toggleModal('modal-delete-post-content', 'open');
+  toggleModal('modal-delete-post-category', 'open');
 };
 
 
-//delete post content
-const deletePostContent = async () => {
+//delete post category
+const deletePostCategory = async () => {
     const loadingElement = document.getElementById('loading');
     if (!loadingElement) {
         return;
@@ -25,7 +25,7 @@ const deletePostContent = async () => {
     
     try {
     loadingElement.classList.remove('hidden');
-    const response = await fetch(`/admin/post-content/${postId}`, {
+    const response = await fetch(`/admin/post-content/category/${categoryId}`, {
       method: 'DELETE',
     });
     const data = await response.json();
@@ -41,27 +41,27 @@ const deletePostContent = async () => {
   }
 } 
 
-const buttonDeleteElements = document.querySelectorAll('.delete-post-content');
+const buttonDeleteElements = document.querySelectorAll('.delete-post-category');
 
 const closeModalElement = document.getElementById(
-  'cancel-modal-delete-post-content',
+  'cancel-modal-delete-post-category',
 );
 const buttonSubmitDeleteElement = document.getElementById(
-    'submit-delete-post-content',
+    'submit-delete-post-category',
   );
 
 if (buttonDeleteElements.length > 0) {
   buttonDeleteElements.forEach(button => {
-    button.addEventListener('click', deletePostContentModal);
+    button.addEventListener('click', deletePostCategoryModal);
   });
 }
 
 if (buttonSubmitDeleteElement) {
-    buttonSubmitDeleteElement.addEventListener('click', deletePostContent);
+    buttonSubmitDeleteElement.addEventListener('click', deletePostCategory);
   }
 
 if (closeModalElement) {
   closeModalElement.addEventListener('click', () => {
-    toggleModal('modal-delete-post-content', 'close');
+    toggleModal('modal-delete-post-category', 'close');
   });
 }

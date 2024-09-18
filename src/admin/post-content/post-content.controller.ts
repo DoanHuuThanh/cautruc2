@@ -1,7 +1,7 @@
 import { Controller, Post, Get, Render, UseInterceptors, UploadedFile, Body, Param, ParseIntPipe, Delete, HttpCode, Patch, Query, HttpException, HttpStatus } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { PostContentService } from 'src/share/services/post-content.service';
-import { insertPostCategoryDTO, updatePostContentDTO } from './dto';
+import { insertPostCategoryDTO, updatePostCategoryDTO, updatePostContentDTO } from './dto';
 import { PostImageUploadService } from 'src/share/services/upload-file.service';
 import { ResponseResult } from 'src/share/models/response-result';
 
@@ -147,6 +147,26 @@ export class PostContentController {
     } catch (error) {
       console.error('Error in createPostCategory:', error);
       throw new HttpException('Failed to create post category', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  @Patch('category/:id')
+  async updatePostCategory(@Param('id', ParseIntPipe) categoryId: number, @Body() body: updatePostCategoryDTO) {
+    try {
+      return await this.postContentService.updatePostCategory(categoryId,body);
+    } catch (error) {
+      console.error('Error in createPostCategory:', error);
+      throw new HttpException('Failed to update post category', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  @Delete('category/:id')
+  async deletePostCategory(@Param('id', ParseIntPipe) categoryId: number) {
+    try {
+      return await this.postContentService.deletePostCategoryById(categoryId);
+    } catch (error) {
+      console.error('Error in deletePostContent:', error);
+      throw new HttpException('Failed to delete post category', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

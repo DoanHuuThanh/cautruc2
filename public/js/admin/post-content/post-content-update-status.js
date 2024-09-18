@@ -41,19 +41,18 @@ const updateStatusPostContent = async (e) => {
     }
 };
 
-const changeStatusElement = document.querySelector('.toggle-checkbox');
+const changeStatusElements = document.querySelectorAll('.toggle-checkbox');
 const exitModalStatus = document.getElementById('exit-modal-status');
 
-if (changeStatusElement) {
-    changeStatusElement.addEventListener('change', updateStatusPostContent);
-} else {
-    console.error('Change status element not found');
-}
+
+if (changeStatusElements.length > 0) {
+    changeStatusElements.forEach(button => {
+      button.addEventListener('click', updateStatusPostContent);
+    });
+  }
 
 if (exitModalStatus) {
     exitModalStatus.addEventListener('click', () => {
         toggleModal('modal-status', 'close');
     });
-} else {
-    console.error('Exit modal status element not found');
 }

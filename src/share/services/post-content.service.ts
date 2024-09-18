@@ -9,6 +9,7 @@ import { PostImage } from '../entities/post-image.entity';
 import { PostContent } from '../entities/post-content.entity';
 import {
   insertPostCategoryDTO,
+  updatePostCategoryDTO,
   updatePostContentDTO,
 } from 'src/admin/post-content/dto';
 import { PostCategory } from '../entities/post-category.entity';
@@ -264,6 +265,41 @@ export class PostContentService extends AdminBaseService{
       totalPages,
       limit,
     };
+  }
+
+  async updatePostCategory(categoryId: number, body: updatePostCategoryDTO): Promise<any> {
+    const postCategory = await this.postCategoryRepository.findOne({
+      where: { id: categoryId },
+    });
+    const result = new ResponseResult()
+    if (!postCategory) {
+      result.statusCode= 400
+      result.message = "Không tìm kiếm được thể loại"
+      return result
+    } 
+
+    postCategory.name = body.name;
+    postCategory.description = body.description
+    await this.postCategoryRepository.save(postCategory);
+
+    result.statusCode= 200
+    result.message = "Cập nhập thể loại bài viết thành công"
+    return result
+  }
+
+  async deletePostCategoryById(categoryId: number): Promise<any> {
+    const postCategory = await this.postCategoryRepository.findOne({
+      where: { id: categoryId },
+    });
+    const result = new ResponseResult()
+    if (!postCategory) {
+      result.statusCode= 400
+      return result;
+    }
+
+    await this.postCategoryRepository.remove(postCategory);
+    result.statusCode= 200
+    return result;
   }
 
 }
