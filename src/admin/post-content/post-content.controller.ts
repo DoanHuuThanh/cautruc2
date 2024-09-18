@@ -1,17 +1,20 @@
-import { Controller, Post, Get, Render, UseInterceptors, UploadedFile, Body, Param, ParseIntPipe, Delete, HttpCode, Patch, Query, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Post, Get, Render, UseInterceptors, UploadedFile, Body, Param, ParseIntPipe, Delete, HttpCode, Patch, Query, HttpException, HttpStatus, UseGuards } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { PostContentService } from 'src/share/services/post-content.service';
 import { insertPostCategoryDTO, updatePostCategoryDTO, updatePostContentDTO } from './dto';
 import { PostImageUploadService } from 'src/share/services/upload-file.service';
 import { ResponseResult } from 'src/share/models/response-result';
+import { AdminGuard } from '../login/guard';
+import { GetAdmin } from '../login/decorator';
 
+@UseGuards(AdminGuard)
 @Controller('admin/post-content')
 export class PostContentController {
   constructor(private postContentService: PostContentService, private postImageUploadService: PostImageUploadService) {}
 
   @Get()
   @Render('admin/admin-index.hbs')
-  async getPostContent(@Query('page') page: number = 1) {
+  async getPostContent(@GetAdmin() admin: any, @Query('page') page: number = 1) {
     try {
       const data = await this.postContentService.getPostContents(page);
       const headers = ['STT','Tiêu đề', 'Thể loại', 'Ảnh đại diện'];

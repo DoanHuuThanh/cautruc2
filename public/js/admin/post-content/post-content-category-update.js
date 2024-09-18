@@ -44,7 +44,6 @@ const editPostCategoryModal = (e) => {
       const categories = categoriesElement.dataset.current_category
         ? JSON.parse(categoriesElement.dataset.current_category)
         : [];
-        console.log(categories);
   
       const name = nameElement.value.trim();
       const description = descriptionElement.value.trim();

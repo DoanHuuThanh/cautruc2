@@ -7,5 +7,5 @@ export class Admin extends BaseEntity {
   username: string;
 
   @Column({ type: 'varchar', length: 255 })
-  hashedPassword: string;
+  password: string;
 }
