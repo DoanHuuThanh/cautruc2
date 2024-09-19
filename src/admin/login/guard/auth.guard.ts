@@ -27,6 +27,9 @@ export class AdminGuard implements CanActivate {
       return true;
     }
 
+    if(request.path === '/admin/login') {
+      return true
+    }
     response.redirect('/admin/login'); 
     return false;
   }

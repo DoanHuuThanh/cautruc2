@@ -45,6 +45,7 @@ export class PostContentService extends AdminBaseService{
   
   //update post content
   async updatePostContent(
+    name: string,
     postId: number,
     updatePostContentDTO: updatePostContentDTO,
     file: Express.Multer.File,
@@ -82,6 +83,7 @@ export class PostContentService extends AdminBaseService{
       postEntity.content = updatePostContentDTO.content;
       postEntity.title = updatePostContentDTO.title;
       postEntity.subtitle = updatePostContentDTO.subtitle
+      postEntity.createdBy = name
       postEntity.category = category;
       let new_image = JSON.parse(updatePostContentDTO.new_image);
       new_image = new_image.map(image => {
@@ -123,11 +125,12 @@ export class PostContentService extends AdminBaseService{
   }
   
   //cerate category post content
-  async createPostCategory(insertPostCategoryDTO: insertPostCategoryDTO) {
+  async createPostCategory(name: string, insertPostCategoryDTO: insertPostCategoryDTO) {
     const result = new ResponseResult()
     const postCategoryEntity = new PostCategory();
     postCategoryEntity.name = insertPostCategoryDTO.name;
     postCategoryEntity.description = insertPostCategoryDTO.description;
+    postCategoryEntity.createdBy = name
     const newPostCategory = await this.postCategoryRepository.save(postCategoryEntity);
     
     if (newPostCategory) {
@@ -267,7 +270,7 @@ export class PostContentService extends AdminBaseService{
     };
   }
 
-  async updatePostCategory(categoryId: number, body: updatePostCategoryDTO): Promise<any> {
+  async updatePostCategory(name:string, categoryId: number, body: updatePostCategoryDTO): Promise<any> {
     const postCategory = await this.postCategoryRepository.findOne({
       where: { id: categoryId },
     });
@@ -280,6 +283,7 @@ export class PostContentService extends AdminBaseService{
 
     postCategory.name = body.name;
     postCategory.description = body.description
+    postCategory.updatedBy = name
     await this.postCategoryRepository.save(postCategory);
 
     result.statusCode= 200

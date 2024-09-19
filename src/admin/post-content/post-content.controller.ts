@@ -20,6 +20,7 @@ export class PostContentController {
       const headers = ['STT','Tiêu đề', 'Thể loại', 'Ảnh đại diện'];
       const keys = ['title', 'category_name', 'url'];
       return {
+        admin: admin,
         currentPage: page,
         totalPages: data.totalPages,
         limit: data.limit,
@@ -36,11 +37,12 @@ export class PostContentController {
 
   @Get('new')
   @Render('admin/admin-index.hbs')
-  async getNewPostContent() {
+  async getNewPostContent(@GetAdmin() admin: any) {
     try {
       const categories = await this.postContentService.getCategories();
       const postContent = await this.postContentService.createPostContent();   
       return {
+        admin: admin,
         postContent: postContent,
         categories: categories,
         body: () => 'post-content-new',
@@ -53,11 +55,12 @@ export class PostContentController {
 
   @Get('update/:id')
   @Render('admin/admin-index.hbs')
-  async getPostContentById(@Param('id', ParseIntPipe) postId: number) {
+  async getPostContentById(@GetAdmin() admin: any, @Param('id', ParseIntPipe) postId: number) {
     try {
       const postContent = await this.postContentService.getPostContentById(postId);
       const categories = await this.postContentService.getCategories();
       return {
+        admin: admin,
         categories: categories,
         postContent: postContent,
         body: () => 'post-content-update'
@@ -70,12 +73,13 @@ export class PostContentController {
 
   @Get('category')
   @Render('admin/admin-index.hbs')
-  async getPostCategory(@Query('page') page: number = 1) {
+  async getPostCategory(@GetAdmin() admin: any, @Query('page') page: number = 1) {
     try {
       const data =await this.postContentService.getPostCategories(page)
       const headers = ['STT','Tên thể loại', 'Mô tả'];
       const keys = ['name', 'description'];
       return {
+        admin: admin,
         currentPage: page,
         totalPages: data.totalPages,
         limit: data.limit,
@@ -108,7 +112,7 @@ export class PostContentController {
 
   @Patch(':id')
   @UseInterceptors(FileInterceptor('upload'))
-  async updatePostContent(@Param('id', ParseIntPipe) postId: number, @Body() body: updatePostContentDTO, @UploadedFile() file: Express.Multer.File) {  
+  async updatePostContent(@GetAdmin() admin: any, @Param('id', ParseIntPipe) postId: number, @Body() body: updatePostContentDTO, @UploadedFile() file: Express.Multer.File) {  
     try {      
       if (body.delete_image) {
         const image_delete = JSON.parse(body.delete_image);
@@ -116,7 +120,7 @@ export class PostContentController {
           await this.postImageUploadService.deleteManyFileByUrl(image_delete);
         }
       }
-      return await this.postContentService.updatePostContent(postId, body, file);
+      return await this.postContentService.updatePostContent(admin.username, postId, body, file);
     } catch (error) {
       console.error('Error in updatePostContent:', error);
       throw new HttpException('Failed to update post content', HttpStatus.INTERNAL_SERVER_ERROR);
@@ -144,9 +148,9 @@ export class PostContentController {
   }
 
   @Post('category')
-  async createPostCategory(@Body() body: insertPostCategoryDTO) {
+  async createPostCategory(@GetAdmin() admin: any, @Body() body: insertPostCategoryDTO) {
     try {
-      return await this.postContentService.createPostCategory(body);
+      return await this.postContentService.createPostCategory(admin.username, body);
     } catch (error) {
       console.error('Error in createPostCategory:', error);
       throw new HttpException('Failed to create post category', HttpStatus.INTERNAL_SERVER_ERROR);
@@ -154,9 +158,9 @@ export class PostContentController {
   }
 
   @Patch('category/:id')
-  async updatePostCategory(@Param('id', ParseIntPipe) categoryId: number, @Body() body: updatePostCategoryDTO) {
+  async updatePostCategory(@GetAdmin() admin: any, @Param('id', ParseIntPipe) categoryId: number, @Body() body: updatePostCategoryDTO) {
     try {
-      return await this.postContentService.updatePostCategory(categoryId,body);
+      return await this.postContentService.updatePostCategory(admin.username, categoryId,body);
     } catch (error) {
       console.error('Error in createPostCategory:', error);
       throw new HttpException('Failed to update post category', HttpStatus.INTERNAL_SERVER_ERROR);
